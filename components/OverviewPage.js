@@ -11,8 +11,6 @@ export default function OverviewPage() {
 
     const { AnimeId, videoId, shortDescription, setNoResult, setInternetError, setLoading, setReviews, reviews, internetError, loading, noResult, handleStart, currentRating, currentAnimeOverview } = useContext(Contexts);
 
-    document.title = `Otaku : ${currentAnimeOverview} Overview`;
-
     const paradata = shortDescription.split(". ");
     const fetchReviews = async () => {
         try {
