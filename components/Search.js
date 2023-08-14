@@ -1,0 +1,106 @@
+"use client"
+import React, { useContext } from 'react'
+import Card from './Card';
+import InternetError from './InternetError';
+import NoResultFound from './NoResultFound';
+import { motion } from 'framer-motion';
+import { Contexts } from '@/context/Store';
+
+export default function Search() {
+
+  const { searchedAnimeList, loading, noResult, internetError, searchAnime, searchedAnimeName } = useContext(Contexts);
+
+  // if (searchedAnimeName === "") {
+  //   document.title = "Otaku : Search Anime"
+  // }
+  // else{
+  //   document.title = `Otaku : Searched for "${searchedAnimeName}"`
+  // }
+
+  return (
+    <>
+      <div className="heading m-auto w-2/3 text-center my-16">
+        <motion.h1 className='text-3xl sm:text-4xl font-bold lg:text-6xl md:text-5xl '
+          initial={{
+            y: "-15vh",
+            opacity: 0
+          }}
+          animate={{
+            y: 0,
+            opacity: 1
+
+          }}
+
+        >
+          🔍🎌 Explore Anime Gallery.</motion.h1>
+        <motion.p className='text-md my-4 lg:text-xl md:text-lg'
+          initial={{
+            y: "15vh",
+            opacity: 0
+          }}
+          animate={{
+            y: 0,
+            opacity: 1
+
+          }}
+        >Unveil the Epic World of Animated Wonders through Seamless Search! 🌟✨</motion.p>
+      </div>
+      {(!noResult && !internetError) && (
+        <>
+          <div className="grid md:grid-col-2 w-10/12 m-auto gap-2 pb-10 lg:grid-cols-3 grid-cols-1 mb-28">
+            {searchedAnimeList.map((card, index) => (
+              <Card card={card} index={index} key={card.id} />
+            ))}
+            {(!loading) && <motion.button className='border-white border-2 px-8 py-2 rounded-[30px] font-semibold mt-5 m-auto md:col-span-3 '
+
+              initial={{
+                scale: 3,
+                opacity: 0,
+                y: "10vh"
+              }}
+              whileInView={{
+                opacity: 1,
+                scale: 1.2,
+                y: 0,
+                transition: {
+                  type: "spring",
+                  stiffness: 200,
+                  duration: 0.7,
+                  delay: 0.1,
+                }
+              }}
+              whileHover={{
+                scale: 1.4,
+                transition: { type: 'tween', delay: 0 },
+              }}
+              whileTap={{
+                scale: 1,
+                transition: { type: 'tween', duration: 1 },
+              }}
+              onClick={searchAnime}
+            >Try Again.</motion.button>}
+          </div>
+
+        </>
+      )}
+      {((internetError && noResult) || (internetError)) && <InternetError tryAgain={searchAnime} />}
+      {(!internetError && noResult) && <NoResultFound errorMessage="Result Not Found." tryAgain={searchAnime} />}
+
+      {(loading) && <motion.div className='border-dotted border-r-4 border-l-4 border-t-4 w-14 m-auto h-14 border-white rounded-[100%]'
+        whileInView={{
+          rotate: 360,
+          transition: {
+            duration: 2,
+            repeat: Infinity
+          }
+        }}
+      >
+      </motion.div>}
+
+
+    </>
+  )
+}
+
+
+//https://kitsu.io/api/edge/anime?filter[text]=${nameOftheAnime}
