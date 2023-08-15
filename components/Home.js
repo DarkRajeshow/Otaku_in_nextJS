@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
+
 export default function Home() {
 
     // document.title = "Otaku : Discover Anime"

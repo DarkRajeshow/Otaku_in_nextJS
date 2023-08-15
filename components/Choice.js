@@ -11,7 +11,7 @@ export default function Choice() {
     const { genres, status, rating, year, handleStart, loading, setLoading, internetError, setInternetError, noResult, setNoResult } = useContext(Contexts);
     const [data, setData] = useState([]);
 
-    let fetchAnime = async () => {
+    const fetchAnime = async () => {
         try {
             setLoading(true);
             setInternetError(false);

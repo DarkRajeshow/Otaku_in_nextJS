@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { Contexts } from '@/context/Store';
 import { FaSearch } from 'react-icons/fa';
 import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 
 
 export default function NavBar() {
@@ -62,7 +63,7 @@ export default function NavBar() {
 
 
     return (
-        <motion.div className="h-24 md:h-32 p-5 w-full border-b-2 border-[white] flex justify-between"
+        <motion.div className="h-24 md:h-24 p-5 w-full border-b-2 border-[white] flex justify-between"
 
             transition={{
                 type: 'tween', duration: 1
@@ -74,8 +75,8 @@ export default function NavBar() {
                 y: 0
             }}
         >
-            <div className="logo flex text-2xl text-white font-bold border-r-2 border-[white] align-middle w-52" onClick={NavigateHome}>
-                <motion.img className='w-14 md:h-[5.5rem] md:w-[5.5rem] rounded-md cursor-pointer' src="https://image.lexica.art/full_jpg/330dbad7-fcc6-4211-92d4-7bb72d99572b" alt=""
+            <div className="logo flex text-white font-bold border-r-2 border-[white] align-middle w-44" onClick={NavigateHome}>
+                <motion.img className='w-14 rounded-md cursor-pointer' src="https://image.lexica.art/full_jpg/330dbad7-fcc6-4211-92d4-7bb72d99572b" alt=""
                     initial={{ opacity: 0.6 }}
                     whileInView={{ opacity: [0, 1] }}
                     whileHover={{
@@ -103,9 +104,16 @@ export default function NavBar() {
                     }}
                     whileTap={{ scale: 0.9 }}
                 >
-                    <h3 className='text-center'>OTAKU</h3>
+                    <h3 className='text-center text-xl'>OTAKU</h3>
                 </motion.div>
             </div>
+
+            {["/","/overview"].includes(pathname) && <div className="sections flex items-center font-semibold lg;text-base xl:text-lg">
+                <span className='text-[#cbcdc2] hidden lg:block'>🌟Looking for custom anime recommendations? <Link href={"/step1"} className='text-[#a2eeff] underline underline-offset-4'> Click here.</Link> 🎬🔍</span>
+                <span className='text-[#cbcdc2]  lg:hidden md:block hidden'>🌟Wants custom recommendations? <Link href={"/step1"} className='text-[#a2eeff] underline underline-offset-4'> Click here.</Link> 🎬🔍</span>
+            </div>
+            }
+
             < div className="serachLink flex align-middle font-bold justify-between p-0"
 
             >
@@ -126,11 +134,11 @@ export default function NavBar() {
                     onKeyDown={handleKeyDown}
                     ref={inputRef}
                     type="text"
-                    className="bg-black my-auto h-[2rem] sm:h-[2.5rem] md:h-[4rem] rounded-s-xl rounded-e-md md:text-[1.5rem] text-[1rem] px-5 appearance-none"
+                    className="bg-black my-auto h-[2rem] sm:h-[2.5rem] rounded-s-sm rounded-e-sm text-xl py-3 px-5 appearance-none"
                 />}
 
                 <motion.div
-                    className="mx-4 sm:mx-6 md:mx-8 lg:mx-10 text-[2rem] sm:text-[2.5rem] md:text-[4rem] cursor-pointer m-auto"
+                    className="mx-4 sm:mx-6 md:mx-8 lg:mx-10 text-[2rem] sm:text-[2.5rem] cursor-pointer m-auto"
                     onClick={pathname == "/search" ? searchAnime : () => {
                         navigateSearchPage();
                         searchAnime();
