@@ -37,7 +37,7 @@ export default function Hero() {
 
     const fetchHeroAnimeList = async () => {
         try {
-            let animeData = await fetch(`https://kitsu.io/api/edge/anime?${generForHero !== "" ? `&filter[genres]=${generForHero}` : ""}&sort=popularityRank&page[limit]=10&fields[anime]=titles,description,coverImage,episodeCount,showType,episodeLength,startDate,youtubeVideoId,showType`);
+            let animeData = await fetch(`https://kitsu.io/api/edge/anime?${generForHero !== "" ? `&filter[genres]=${generForHero}` : ""}&sort=popularityRank&page[limit]=10&fields[anime]=titles,description,coverImage,episodeCount,showType,episodeLength,startDate,youtubeVideoId,showType,averageRating`);
 
             let parsedanimeData = await animeData.json();
 
