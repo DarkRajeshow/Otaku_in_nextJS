@@ -2,10 +2,11 @@
 import useEmblaCarousel from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
 import React, { useEffect, useState, useCallback, useContext } from 'react'
-import { FaCalendar, FaChevronLeft, FaChevronRight, FaClock, FaFilm, FaPlayCircle, FaInfoCircle, FaTv, FaCaretDown, FaCaretUp } from 'react-icons/fa'
+import { FaChevronLeft, FaChevronRight, FaTv, FaCaretDown, FaCaretUp } from 'react-icons/fa'
 import { Contexts } from '@/context/Store'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
+import CarousalCard from './CarousalCard'
 export default function Hero() {
     const { setCurrentAnimeOverview, setAnimeId, setvideoId, setShortDescription, setCurrentRating, loading, setLoading } = useContext(Contexts)
 
@@ -45,8 +46,7 @@ export default function Hero() {
     const [heroData, setHeroData] = useState([]);
     const [isExpanded, setIsExpanded] = useState(false)
     const [generForHero, setgenerForHero] = useState("All");
-    // const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay()])
-    const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true })
+    const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay()])
 
     const scrollPrev = useCallback(() => {
         if (emblaApi) emblaApi.scrollPrev()
@@ -70,9 +70,20 @@ export default function Hero() {
     const fetchHeroAnimeList = async () => {
         try {
             setLoading(true);
-            let animeData = await fetch(`https://kitsu.io/api/edge/anime?${generForHero !== "" ? `&filter[categories]=${generForHero}` : ""}&sort=popularityRank&page[limit]=10&fields[anime]=titles,description,coverImage,episodeCount,showType,episodeLength,startDate,youtubeVideoId,showType,averageRating`);
+
+            const apiUrl = "https://kitsu.io/api/edge/anime";
+            const queryParams = new URLSearchParams({
+                include:"genres",
+                sort: "popularityRank",
+                "page[limit]": 10,
+                "filter[categories]":`${generForHero}`,
+            });
+            
+            const animeData = await fetch(`${apiUrl}?${queryParams}`);
+
 
             let parsedanimeData = await animeData.json();
+            console.log(parsedanimeData);
 
             if (parsedanimeData.data.length === 0) {
                 setHeroData([])
@@ -202,41 +213,9 @@ export default function Hero() {
                             };
 
                             return (
-                                <div className="embla__slide" key={anime.id}>
-                                    <div className="image">
-                                        <div
-                                            className="w-screen h-[70vh] md:h-screen"
-                                            style={gradientStyle}
-                                        >
-                                            <div className='gradientDiv text-light relative top-[50%] sm:-top-[10%] md:top-0 sm:translate-y-[40%] left-10 w-[60%] md:w-[50%]'>
-                                                <p className='text-base sm:text-lg md:text-xl lg:text-[24px] font-bold'><span className='text-primaryDark'>#{index + 1}</span>Rank</p>
-                                                <h1 className='text-[26px] min-[400px]:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mt-2 mb-5'>{title}</h1>
-                                                <div className="smallinfo flex md:font-semibold mb-5 text-sm sm:text-base md:text-lg text-light ">
-                                                    <div className="type flex items-center mr-5">
-                                                        <FaPlayCircle className='mr-[6px] text-green' />
-                                                        {anime.attributes.showType}
-                                                    </div>
-                                                    <div className="type flex items-center mr-5">
-                                                        <FaClock className='mr-[6px] text-green' />
-                                                        {anime.attributes.episodeLength}
-                                                    </div>
-                                                    <div className="type flex items-center mr-5">
-                                                        <FaFilm className='mr-[6px] text-green' />
-                                                        {anime.attributes.episodeCount}
-                                                    </div>
-                                                    <div className="hidden md:flex type items-center">
-                                                        <FaCalendar className='mr-[6px] text-green' />
-                                                        {anime.attributes.startDate}
-                                                    </div>
-                                                </div>
-                                                <p className='hidden sm:block md:text-base mb-5 mt-3'>{anime.attributes.description.length > 200 ? `${anime.attributes.description.split(" ").slice(0, 40).join(" ")}...` : anime.attributes.description}</p>
-                                                <button className='text-sm md:text-base font-bold p-2 md:px-4 md:py-3 bg-light text-dark rounded-lg my-4 flex items-center '
-                                                    onClick={openOverview.bind(null, index)}
-                                                >More Details <FaInfoCircle className='ml-2 text-xl' /> </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <>
+                                    <CarousalCard CategoryColors={CategoryColors} key={anime.id} index={index} anime={anime} gradientStyle={gradientStyle} title={title} openOverview={openOverview} />
+                                </>
                             );
                         })}
                     </div>
