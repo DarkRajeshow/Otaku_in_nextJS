@@ -1,12 +1,12 @@
 import Image from 'next/image'
-import Home from '@/components/Home'
 import Hero from '@/components/Hero'
+import Hero2 from '@/components/Hero2'
 
 export default function HomeRout() {
   return (
     <main className="">
       <Hero />
-      <Home />
+      <Hero2/>
     </main>
   )
 }

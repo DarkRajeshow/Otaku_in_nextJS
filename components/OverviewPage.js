@@ -1,5 +1,5 @@
 "use client"
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { motion } from "framer-motion";
 import ReviewCard from './ReviewCard';
 import InternetError from './InternetError';
@@ -12,12 +12,42 @@ export default function OverviewPage() {
     const { AnimeId, videoId, shortDescription, setNoResult, setInternetError, setLoading, setReviews, reviews, internetError, loading, noResult, handleStart, currentRating, currentAnimeOverview } = useContext(Contexts);
 
     const paradata = shortDescription.split(". ");
+    const [Names, setNames] = useState([])
+
+    let RandomNames = [];
+
+
+    const firstNames = [
+        "James", "Emma", "Liam", "Olivia", "Noah", "Ava", "William", "Isabella", "Ethan", "Sophia",
+        // Add more first names here...
+    ];
+
+    const lastNames = [
+        "Smith", "Johnson", "Williams", "Jones", "Brown", "Davis", "Miller", "Wilson", "Moore", "Taylor",
+        // Add more last names here...
+    ];
+
+
+    function getRandomFullName() {
+        const randomFirstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+        const randomLastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+        return {
+            firstName: randomFirstName,
+            lastName: randomLastName
+        };
+    }
+
+    // Generate and print 10 random names and surnames
+
+
+
+
     const fetchReviews = async () => {
         try {
             setLoading(true);
             setInternetError(false);
             setNoResult(false);
-
+            setNames([])
             const animeData = await fetch(`https://kitsu.io/api/edge/anime/${AnimeId}/reviews?fields[reviews]=likesCount,contentFormatted,rating,createdAt,source`);
 
             const parsedAnimeReviews = await animeData.json();
@@ -28,6 +58,13 @@ export default function OverviewPage() {
                 setReviews([]);
                 return;
             }
+            for (let i = 0; i < parsedAnimeReviews.data.length; i++) {
+                const randomName = getRandomFullName();
+                RandomNames.push(randomName);
+            }
+
+            setNames(RandomNames);
+
             setReviews(parsedAnimeReviews.data)
         }
         catch {
@@ -135,7 +172,7 @@ export default function OverviewPage() {
                         <>
                             <div className="w-full m-auto pb-10 mb-28 ">
                                 {Array.isArray(reviews) && reviews.map((review, index) => (
-                                    <ReviewCard review={review} index={index} key={index} />
+                                    <ReviewCard review={review} index={index} key={index} RandomNames={Names} />
                                 ))}
                             </div>
                         </>

@@ -28,7 +28,6 @@ export default function Search() {
           animate={{
             y: 0,
             opacity: 1
-
           }}
 
         >

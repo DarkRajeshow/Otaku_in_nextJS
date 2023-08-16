@@ -14,7 +14,7 @@ export default function NavBar() {
 
     const inputRef = useRef(null);
 
-    const [InputBarWidth, setInputBarWidth] = useState(280);
+    const [InputBarWidth, setInputBarWidth] = useState(240);
 
     const handleChange = (event) => {
         if (event.target.value.trim() !== "") {
@@ -35,14 +35,20 @@ export default function NavBar() {
             setIsItSearchPage(false);
         }
         const handleResize = () => {
-            if (window.innerWidth <= 500) {
+            if (window.innerWidth <= 400) {
+                setInputBarWidth(80)
+            }
+            else if (window.innerWidth <= 500) {
                 setInputBarWidth(100)
             }
             else if (window.innerWidth <= 775) {
-                setInputBarWidth(180)
+                setInputBarWidth(160)
+            }
+            else if (window.innerWidth <= 1100) {
+                setInputBarWidth(190)
             }
             else {
-                setInputBarWidth(280);
+                setInputBarWidth(240);
             }
         }
 
@@ -75,7 +81,7 @@ export default function NavBar() {
                 y: 0
             }}
         >
-            <div className="logo flex text-white font-bold border-r-2 border-[white] align-middle w-44" onClick={NavigateHome}>
+            <div className="logo flex text-white font-bold border-r-2 border-[white] align-middle w-32 md:w-36 lg:w-44" onClick={NavigateHome}>
                 <motion.img className='w-14 rounded-md cursor-pointer' src="https://image.lexica.art/full_jpg/330dbad7-fcc6-4211-92d4-7bb72d99572b" alt=""
                     initial={{ opacity: 0.6 }}
                     whileInView={{ opacity: [0, 1] }}
@@ -104,11 +110,11 @@ export default function NavBar() {
                     }}
                     whileTap={{ scale: 0.9 }}
                 >
-                    <h3 className='text-center text-xl'>OTAKU</h3>
+                    <h3 className='text-center text-sm sm:text-base md:text-lg lg:text-xl'>OTAKU</h3>
                 </motion.div>
             </div>
 
-            {["/","/overview"].includes(pathname) && <div className="sections flex items-center font-semibold lg;text-base xl:text-lg">
+            {["/", "/overview"].includes(pathname) && <div className="sections flex items-center font-semibold lg;text-base xl:text-lg">
                 <span className='text-[#cbcdc2] hidden lg:block'>🌟Looking for custom anime recommendations? <Link href={"/step1"} className='text-[#a2eeff] underline underline-offset-4'> Click here.</Link> 🎬🔍</span>
                 <span className='text-[#cbcdc2]  lg:hidden md:block hidden'>🌟Wants custom recommendations? <Link href={"/step1"} className='text-[#a2eeff] underline underline-offset-4'> Click here.</Link> 🎬🔍</span>
             </div>
@@ -134,22 +140,22 @@ export default function NavBar() {
                     onKeyDown={handleKeyDown}
                     ref={inputRef}
                     type="text"
-                    className="bg-black my-auto h-[2rem] sm:h-[2.5rem] rounded-s-sm rounded-e-sm text-xl py-3 px-5 appearance-none"
+                    className="bg-black my-auto h-[2rem] sm:h-[2.5rem] rounded-s-sm rounded-e-sm text-xl py-3 px-5 appearance-none "
                 />}
 
                 <motion.div
                     className="mx-4 sm:mx-6 md:mx-8 lg:mx-10 text-[2rem] sm:text-[2.5rem] cursor-pointer m-auto"
-                    onClick={pathname == "/search" ? searchAnime : () => {
+                    onClick={pathname === "/search" ? searchAnime : () => {
                         navigateSearchPage();
                         searchAnime();
                     }}
-                    initial={{ opacity: 0.6 }}
-                    whileInView={{ opacity: [0, 1] }}
-                    whileHover={{
+                    animate={pathname === "/search" ? {} : {
+                        scale: [1, 0.9, 1],
                         transition: {
-                            duration: 0.2, // Adjust the duration as needed
+                            duration: 2, // Adjust the duration as needed
+                            type: "just",
+                            repeat: Infinity
                         },
-                        opacity: 1, // Set opacity explicitly to prevent it from going to 100%
                     }}
                     whileTap={{
                         scale: 0.7,

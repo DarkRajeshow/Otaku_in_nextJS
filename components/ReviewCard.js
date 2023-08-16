@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import RatingStars from './RatingStars';
 import { motion } from 'framer-motion';
-import { FaRegThumbsUp, FaSitemap, FaThumbsUp } from 'react-icons/fa';
+import { FaRegThumbsUp, FaThumbsUp, FaUserCircle } from 'react-icons/fa';
 
 export default function ReviewCard(props) {
 
@@ -25,7 +25,6 @@ export default function ReviewCard(props) {
     const truncatedContent = shortDescriptionSplited.slice(0, 60).join(" ") + (((!isExpanded) && shortDescriptionSplited.length > 60) ? " . . . ." : "");
     const shouldTruncate = shortDescriptionSplited.length > 60;
     let review = isExpanded ? props.review.attributes.contentFormatted : truncatedContent;
-
 
     return (
         <>
@@ -51,8 +50,7 @@ export default function ReviewCard(props) {
                     onClick={toggleExpand}
                 >
                     <div className="heading mb-5">
-
-                        <span className='text-3xl font-bold capitalize'> <FaSitemap className="fa-solid fa-sitemap text-3xl md:text-4xl lg:text-5xl pr-3 inline" />{props.review.attributes.source}</span>
+                        <span className='text-3xl font-bold capitalize'> <FaUserCircle className="fa-sitemap text-3xl md:text-4xl lg:text-5xl pr-3 inline" />{`${props.RandomNames[props.index].firstName} ${props.RandomNames[props.index].lastName}`} </span>
                         <div className='text-gray-400 font-bold'>On {formatedPublishedDate}</div>
                         <div className='pr-10'><RatingStars rating={props.review.attributes.rating} /></div>
                     </div>

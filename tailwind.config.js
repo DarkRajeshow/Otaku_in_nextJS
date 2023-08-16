@@ -17,6 +17,26 @@ module.exports = {
         dark: "#1b1b1b",
         primary: "#B63E96", // 240,86,199
         primaryDark: "#58E6D9", // 80,230,217
+        green: "#a4ffb1",
+        action: '#F87171',    // Action
+        adventure: '#60A5FA', // Adventure
+        comedy: '#34D399',    // Comedy
+        drama: '#A78BFA',      // Drama
+        fantasy: '#FBBF24',    // Fantasy
+        magic: '#EC4899',      // Magic
+        mecha: '#6EE7B7',      // Mecha
+        music: '#9333EA',      // Music
+        mystery: '#F472B6',    // Mystery
+        psychological: '#10B981', // Psychological
+        romance: '#FB923C',    // Romance
+        school: '#7C3AED',     // School
+        future: '#8B5CF6',      // Sci-Fi
+        sliceOfLife: '#60A5FA', // Slice of Life
+        sports: '#14B8A6',     // Sports
+        shounen: '#FBBF24', // Supernatural
+        thriller: '#DC2626',   // Thriller
+        all: '#EC4899',    // Vampire
+
       },
       backgroundImage: {
         texturedBg: "linear-gradient(to right, rgba(245, 245, 245, .8), rgb(255 221 214 / 80%)), url(https://d33wubrfki0l68.cloudfront.net/daac8858fd4a0ccea44f59dfd079c3c16c263f33/c157c/assets/svg/common-bg.svg);",
