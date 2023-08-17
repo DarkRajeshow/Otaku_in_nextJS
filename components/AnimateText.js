@@ -20,7 +20,7 @@ export default function AnimateText({ text, className = "", durationtime = "0.5"
     const wordVariant = {
         initial: {
             opacity: 0,
-            y: 80
+            y: 40
         },
         whileInView: {
             opacity: 1,
@@ -31,14 +31,48 @@ export default function AnimateText({ text, className = "", durationtime = "0.5"
         }
     }
 
+    const colorCodes = [
+        "#f5f5f5",     // light
+        "#1b1b1b",     // dark
+        "#B63E96",     // primary
+        "#58E6D9",     // primaryDark
+        "#a4ffb1",     // green
+        "#F87171",     // action
+        "#60A5FA",     // adventure
+        "#34D399",     // comedy
+        "#A78BFA",     // drama
+        "#FBBF24",     // fantasy
+        "#EC4899",     // magic
+        "#6EE7B7",     // mecha
+        "#9333EA",     // music
+        "#F472B6",     // mystery
+        "#10B981",     // psychological
+        "#FB923C",     // romance
+        "#7C3AED",     // school
+        "#8B5CF6",     // future
+        "#60A5FA",     // sliceOfLife
+        "#14B8A6",     // sports
+        "#FBBF24",     // shounen
+        "#DC2626",     // thriller
+        "#EC4899"      // all
+      ];
+
 
     return (
         <motion.div className='inline-block w-full overflow-hidden'
             variants={quatVarient}
             initial="initial"
             whileInView="whileInView"
+            animate={{
+                color: colorCodes,
+                transition:{
+                    type:"just",
+                    duration:40,
+                    repeat:Infinity
+                }
+            }}
         >
-            <h1 className={`capitalize text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl ${className}  `}>
+            <h1 className={`capitalize ${className}  `}>
                 {
                     text.split(" ").map((word, index) => {
                         return <motion.span

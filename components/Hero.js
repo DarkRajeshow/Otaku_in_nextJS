@@ -7,12 +7,11 @@ import { Contexts } from '@/context/Store'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import CarousalCard from './CarousalCard'
+import SmartLoader from './SmartLoader'
+
 export default function Hero() {
     const { setCurrentAnimeOverview, setAnimeId, setvideoId, setShortDescription, setCurrentRating, loading, setLoading } = useContext(Contexts)
-
-
     const navigate = useRouter();
-
     const Categories = [
         "All",
         "Action",
@@ -73,17 +72,16 @@ export default function Hero() {
 
             const apiUrl = "https://kitsu.io/api/edge/anime";
             const queryParams = new URLSearchParams({
-                include:"genres",
+                include: "genres",
                 sort: "popularityRank",
                 "page[limit]": 10,
-                "filter[categories]":`${generForHero}`,
+                "filter[categories]": `${generForHero}`,
             });
-            
+
             const animeData = await fetch(`${apiUrl}?${queryParams}`);
 
 
             let parsedanimeData = await animeData.json();
-            console.log(parsedanimeData);
 
             if (parsedanimeData.data.length === 0) {
                 setHeroData([])
@@ -134,52 +132,7 @@ export default function Hero() {
 
 
             </motion.div >
-            {loading &&
-                <div className='h-screen w-full flex items-center justify-center'>
-                    <motion.div className="flex "
-                        initial={{
-                            opacity: 0.1
-                        }}
-                        animate={{
-                            opacity: 1,
-                            transition: {
-                                duration: 1
-                            }
-                        }}
-                    >
-                        <motion.div className="rounded-full bg-light h-6 w-6 mr-1"
-                            animate={{
-                                scale: [1, 0.6, 1],
-                                transition: {
-                                    duration: 1.5,
-                                    repeat: Infinity
-                                }
-                            }}
-                        />
-                        <motion.div className="rounded-full bg-light h-6 w-6 mr-1"
-                            animate={{
-                                scale: [1, 0.6, 1],
-                                transition: {
-                                    delay: 0.5,
-                                    duration: 1.5,
-                                    repeat: Infinity
-                                }
-                            }}
-                        />
-                        <motion.div className="rounded-full bg-light h-6 w-6 "
-                            animate={{
-                                scale: [1, 0.6, 1],
-                                transition: {
-                                    delay: 1,
-                                    duration: 1.5,
-                                    repeat: Infinity
-                                }
-                            }}
-                        />
-
-                    </motion.div>
-                </div>
-            }
+            {loading && <SmartLoader />}
             {
                 (heroData.length !== 0 && !loading) && <motion.div className="embla" ref={emblaRef}
                     initial={{

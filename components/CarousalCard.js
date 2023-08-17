@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import { Contexts } from '@/context/Store'
+import { motion } from 'framer-motion'
+import React, { useContext, useEffect, useState } from 'react'
 import { FaCalendar, FaClock, FaFilm, FaPlayCircle, FaInfoCircle, FaStar, FaTv, FaDotCircle } from 'react-icons/fa'
-
 
 export default function CarousalCard({ anime, gradientStyle, title, index, openOverview, CategoryColors }) {
 
@@ -11,15 +12,14 @@ export default function CarousalCard({ anime, gradientStyle, title, index, openO
     // fetchAnimeLinks
     const fetchAnimeGenres = async () => {
         try {
+
             const unParsedGenresList = await Promise.all(
                 genreData.map((genre) => fetch(`${genreBaseUrl}${genre.id}`).then(response => response.json()))
             );
 
             const genresArray = unParsedGenresList.map(data => data.data.attributes.name);
             setGenres(genresArray);
-            console.log(genres);
         }
-
         catch (error) {
             console.error('An error occurred while fetching genres:', error);
         }
@@ -36,7 +36,7 @@ export default function CarousalCard({ anime, gradientStyle, title, index, openO
                     className="w-screen h-[70vh] md:h-screen"
                     style={gradientStyle}
                 >
-                    <div className='gradientDiv text-light relative top-[50%] sm:-top-[10%] md:top-0 sm:translate-y-[40%] left-10 w-[60%] md:w-[50%]'>
+                    <div className='gradientDiv text-light relative top-[40%] sm:top-0 sm:translate-y-[5%] md:translate-y-[30%] left-10 w-[60%] md:w-[50%]'>
                         <p className='text-base sm:text-lg md:text-xl lg:text-[24px] font-bold'><span className='text-primaryDark'>#{index + 1}</span>Rank</p>
                         <h1 className='text-[26px] min-[400px]:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mt-2 mb-5'>{title}</h1>
                         <div className="smallinfo flex md:font-semibold mb-5 text-sm sm:text-base md:text-lg text-light ">
@@ -58,13 +58,24 @@ export default function CarousalCard({ anime, gradientStyle, title, index, openO
                             </div>
                         </div>
                         <p className='hidden sm:block md:text-base mb-5 mt-3'>{anime.attributes.description.length > 200 ? `${anime.attributes.description.split(" ").slice(0, 40).join(" ")}...` : anime.attributes.description}</p>
-                        {genres.length !== 0 && <div className='flex text-base mb-4'>
+                        {genres.length !== 0 && <motion.div className={`hidden sm:flex text-[12px] md:text-sm lg:text-base mb-4`}
+                            initial={{
+                                opacity: 0,
+                            }}
+                            animate={{
+                                opacity: 1,
+                                transition:{
+                                    type:"just",
+                                    duration: 1
+                                }
+                            }}
+                        >
                             {genres.map((genre, index) => {
                                 return (
                                     <p key={index} className={`mr-3 ${CategoryColors[index]} flex items-center`}><FaDotCircle className='mr-[2px]' />{genre}</p>
                                 )
                             })}
-                        </div>}
+                        </motion.div>}
                         <p className='text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold flex items-center '><FaStar className='mr-2 text-fantasy' /> {Math.round(anime.attributes.averageRating) / 10}</p>
                         <button className='text-sm md:text-base font-bold p-2 md:px-4 md:py-3 bg-light text-dark rounded-lg my-4 flex items-center '
                             onClick={openOverview.bind(null, index)}

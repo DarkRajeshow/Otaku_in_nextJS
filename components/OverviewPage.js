@@ -58,6 +58,7 @@ export default function OverviewPage() {
                 setReviews([]);
                 return;
             }
+
             for (let i = 0; i < parsedAnimeReviews.data.length; i++) {
                 const randomName = getRandomFullName();
                 RandomNames.push(randomName);
@@ -168,7 +169,7 @@ export default function OverviewPage() {
                             <span className="lg:text-[8rem] md:text-[6rem] text-[4rem] font-bold fa-solid fa-star text-yellow-300"></span>
                         </div>
                     </motion.div>
-                    {(!noResult && !internetError && !loading) && (
+                    {(!noResult && !internetError && !loading && Names.length !== 0) && (
                         <>
                             <div className="w-full m-auto pb-10 mb-28 ">
                                 {Array.isArray(reviews) && reviews.map((review, index) => (
@@ -230,8 +231,6 @@ export default function OverviewPage() {
                         </div>
                     </>
                     }
-
-
 
                 </div>
             </div >
