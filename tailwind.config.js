@@ -43,7 +43,9 @@ module.exports = {
         themeBgDark: "linear-gradient(to right, #1b1b1b, rgb(0, 0, 0, 0.75)), url(https://aniwatch.to/images/anw-min.webp);",
         gradientMd: 'linear-gradient(90deg, rgba(0,0,0,0.891281512605042) 22%, rgba(78,78,91,0) 56%, rgba(28,23,23,1) 100%)',
         gradientMobile: 'linear-gradient(90deg, rgba(0,0,0,0.891281512605042) 4%, rgba(78,78,91,0) 50%, rgba(28,23,23,0.9585084033613446) 98%)',
-        gradientBoxColor: 'linear-gradient(90deg, rgba(29,0,48,1) 0%, rgba(6,0,69,1) 32%, rgba(45,3,79,1) 78%, rgba(0,0,0,1) 98%)'
+        gradientBoxColor: 'linear-gradient(90deg, rgba(29,0,48,1) 0%, rgba(6,0,69,1) 32%, rgba(45,3,79,1) 78%, rgba(0,0,0,1) 98%)',
+        pinkBlue: 'radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%)',
+        redBlack: 'linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%)'
       },
     },
   },

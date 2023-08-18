@@ -28,7 +28,7 @@ export default function Footer() {
     }
 
     return (
-        <div className="mt-[220vh] min-[400px]:[200vh] sm:mt-[190vh] md:mt-[190vh] lg:mt-[155vh] py-10 border-t-4 border-light px-6 md:px-16 lg:px-32 bg-dark grid grid-cols-9 gap-3">
+        <div className="py-10 border-t-4 border-light px-6 md:px-16 lg:px-32 bg-dark grid grid-cols-9 gap-3">
             <div className='flex items-center justify-center col-span-3 min-[400px]:col-span-2 lg:col-span-1'>
                 <Link href={"/"} >
                     <Image src={Logo} alt='Logo' className='h-20 w-20 rounded-full border-2 border-light' />

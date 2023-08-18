@@ -117,7 +117,7 @@ export default function Hero() {
                 {Categories.map((Category, index) => {
                     return (
                         <span
-                            className={`font-bold rounded-lg flex items-center justify-center cursor-pointer p-3 ${CategoryColors[index]} ${Category === generForHero ? 'bg-black border-[1px] border-light' : ''}`}
+                            className={`font-bold rounded-[30px] flex items-center justify-center cursor-pointer p-3 ${CategoryColors[index]} ${Category === generForHero ? 'bg-black border-[1px] border-light' : ''}`}
                             key={index}
                             onClick={() => {
                                 setgenerForHero(Category);
