@@ -46,22 +46,26 @@ export default function Hero2() {
         "#EC4899"      // all
       ];
 
-    const fetchMovieData = async () => {
-        setIsLoading(true);
-        const apiUrl = "https://kitsu.io/api/edge/anime";
-        const queryParams = new URLSearchParams({
-            sort: "popularityRank", // Sort in descending order of average rating
-            "page[limit]": 5, // Limit the results to 5 items
-            "page[offset]": offSetPage,
-            "fields[anime]": "titles,averageRating,episodeLength,posterImage,youtubeVideoId,description", // Include only titles and averageRating
-            "filter[subtype]": "movie", // Filter for movies
-        });
-        const fullUrl = `${apiUrl}?${queryParams}`;
-        const unParesedData = await fetch(fullUrl);
-        const parsedData = await unParesedData.json();
-        setTopMoviesData(parsedData.data);
-        setIsLoading(false);
-    }
+      const fetchMovieData = async () => {
+        try {
+            setIsLoading(true);
+            const apiUrl = "https://kitsu.io/api/edge/anime";
+            const queryParams = new URLSearchParams({
+                sort: "popularityRank",
+                "page[limit]": 5,
+                "page[offset]": offSetPage,
+                "fields[anime]": "titles,averageRating,episodeLength,posterImage,youtubeVideoId,description",
+                "filter[subtype]": "movie",
+            });
+            const fullUrl = `${apiUrl}?${queryParams}`;
+            const unParesedData = await fetch(fullUrl);
+            const parsedData = await unParesedData.json();
+            setTopMoviesData(parsedData.data);
+            setIsLoading(false);
+        } catch (error) {
+            // Handle the error here, without logging anything to the console
+        } 
+    };
 
     const openOverview = async (index) => {
         await setCurrentAnimeOverview((topMoviesData[index].attributes.titles.en ? topMoviesData[index].attributes.titles.en : topMoviesData[index].attributes.titles.en_us ? topMoviesData[index].attributes.titles.en_us : topMoviesData[index].attributes.titles.en_jp ? topMoviesData[index].attributes.titles.en_jp : topMoviesData[index].attributes.titles.ja_jp ? topMoviesData[index].attributes.titles.ja_jp : ""))
@@ -81,7 +85,7 @@ export default function Hero2() {
     return (
         <>
             <div
-                className='w-full h-[200vh] flex flex-col items-center my-32'
+                className='w-full flex flex-col items-center mt-[-20vh] md:mt-32 my-32'
             >
                 <div className='text-center w-[80%] sm:w-[60%]'>
                     <AnimateText className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold pb-3 mt-10' text={"Let's Dive into the world of anime Movies!"} />

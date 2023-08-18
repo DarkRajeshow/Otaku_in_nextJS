@@ -33,7 +33,7 @@ export default function CarousalCard({ anime, gradientStyle, title, index, openO
         <div className="embla__slide" key={anime.id}>
             <div className="image">
                 <div
-                    className="w-screen h-[70vh] md:h-screen"
+                    className="w-screen h-[70vh] md:h-screen "
                     style={gradientStyle}
                 >
                     <div className='gradientDiv text-light relative top-[40%] sm:top-0 sm:translate-y-[5%] md:translate-y-[30%] left-10 w-[60%] md:w-[50%]'>

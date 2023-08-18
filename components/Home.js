@@ -36,7 +36,7 @@ export default function Home() {
     }, []);
 
     return (
-        <div className="mx-auto w-10/12 mt-10 grid gap-6 grid-cols-1 min-[1430px]:grid-cols-2 border-b-2 pb-10 border-white mb-40">
+        <div className="mt-[220vh] md:mt-[200vh] lg:mt-[180vh] mx-auto w-10/12 grid gap-6 grid-cols-1 min-[1430px]:grid-cols-2 border-b-2 pb-10 border-white mb-40">
             <motion.div className="heading pb-4 grid-cols-1 px-[2%] py-5 "
                 key={imageIndex}
                 initial={{

@@ -1,77 +1,43 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
-import { motion } from 'framer-motion';
-import { Contexts } from '../App';
 
-const Footer = () => {
-  const [showFooter, setShowFooter] = useState(false);
-  const { loading } = useContext(Contexts);
-  const socialIcons = [
-    { icon: faFacebook, link: 'https://www.facebook.com' },
-    { icon: faGithub, link: 'https://github.com/DarkRajeshow/' },
-    { icon: faLinkedin, link: 'https://www.linkedin.com/in/rajesh-adeli-880a89259/' },
-  ];
+"use client"
+import React from 'react'
+import Link from 'next/link'
+import Logo from '@/public/logo.jpeg'
+import { motion } from 'framer-motion'
+import Image from 'next/image'
 
-  const iconVariants = {
-    hover: { scale: 1.2 },
-  };
+export default function Footer() {
+    const MotionLink = motion(Link);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const isAtBottom = window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
-      setShowFooter(isAtBottom);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  if (!showFooter || loading) {
-    return null;
-  }
-
-  return (
-    <motion.footer
-      className='w-10/12 mx-[8.333%] align-middle flex my-auto bottom-0 justify-between fixed left-0 right-0'
-      initial={{
-        opacity: 0,
-      }}
-      exit={{ opacity: 0 }}
-      animate={{
-        opacity: 1,
-        y: 0,
-        transition: {
-          type: 'tween',
-          duration: 1
+    const iconMotionVariants = {
+        animate: {
+            opacity: [0, 1],
+            transition: {
+                type: "just",
+                duration: 1
+            }
+        },
+        hover: {
+            y: -3,
+            scale: 1.2,
+            transition: {
+                type: "spring",
+                duration: 0.3
+            }
         }
-      }}
-      transition={{
-        duration: 1
-      }}
-    >
-      <div className="name mb-10 flex align-middle my-5">
-        <h1 className='md:text-3xl text-[16px] font-bold my-auto border-r-4 border-white pr-5'>DarkRajeshow</h1>
-      </div>
-      <div className="footer-icons text-right my-5">
-        {socialIcons.map(({ icon, link }) => (
-          <motion.a
-            className='md:text-3xl text-[16px] mx-1'
-            key={link}
-            href={link}
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover="hover"
-            variants={iconVariants}
-          >
-            <FontAwesomeIcon icon={icon} />
-          </motion.a>
-        ))}
-      </div>
-    </motion.footer>
-  );
-};
+    }
 
-export default Footer;
+    return (
+        <div className="mt-[220vh] min-[400px]:[200vh] sm:mt-[190vh] md:mt-[190vh] lg:mt-[155vh] py-10 border-t-4 border-light px-6 md:px-16 lg:px-32 bg-dark grid grid-cols-9 gap-3">
+            <div className='flex items-center justify-center col-span-3 min-[400px]:col-span-2 lg:col-span-1'>
+                <Link href={"/"} >
+                    <Image src={Logo} alt='Logo' className='h-20 w-20 rounded-full border-2 border-light' />
+                </Link>
+            </div>
+            <div className="contacttext font-medium text-xs min-[400px]:text-sm sm:text-base col-span-6 min-[400px]:col-span-7 lg:col-span-8 flex flex-col justify-center">
+                <h1 className='font-bold'>© <Link href={"/"} className='underline underline-offset-4 text-adventure'>otakuuniverse.vercel.app</Link> All rights reserved.</h1>
+                <p>we do not store any files on our server. Our website only provides links to media content that is hosted on third-party services. A big credit goes to <strong>kitsuApi</strong> which provides valuable data for free.</p>
+            </div>
+        </div>
+    )
+}

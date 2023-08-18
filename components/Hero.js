@@ -10,7 +10,7 @@ import CarousalCard from './CarousalCard'
 import SmartLoader from './SmartLoader'
 
 export default function Hero() {
-    const { setCurrentAnimeOverview, setAnimeId, setvideoId, setShortDescription, setCurrentRating, loading, setLoading } = useContext(Contexts)
+    const { setCurrentAnimeOverview, setAnimeId, setvideoId, setShortDescription, setCurrentRating, loading, setLoading, internetError, setInternetError } = useContext(Contexts)
     const navigate = useRouter();
     const Categories = [
         "All",

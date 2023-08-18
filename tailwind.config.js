@@ -36,13 +36,14 @@ module.exports = {
         shounen: '#FBBF24', // Supernatural
         thriller: '#DC2626',   // Thriller
         all: '#EC4899',    // Vampire
-
       },
       backgroundImage: {
         texturedBg: "linear-gradient(to right, rgba(245, 245, 245, .8), rgb(255 221 214 / 80%)), url(https://d33wubrfki0l68.cloudfront.net/daac8858fd4a0ccea44f59dfd079c3c16c263f33/c157c/assets/svg/common-bg.svg);",
         texturedBgDark: "linear-gradient(to right, #1b1b1b, rgb(0, 0, 0, 0.75)), url(https://d33wubrfki0l68.cloudfront.net/daac8858fd4a0ccea44f59dfd079c3c16c263f33/c157c/assets/svg/common-bg.svg);",
+        themeBgDark: "linear-gradient(to right, #1b1b1b, rgb(0, 0, 0, 0.75)), url(https://aniwatch.to/images/anw-min.webp);",
         gradientMd: 'linear-gradient(90deg, rgba(0,0,0,0.891281512605042) 22%, rgba(78,78,91,0) 56%, rgba(28,23,23,1) 100%)',
-        gradientMobile: 'linear-gradient(90deg, rgba(0,0,0,0.891281512605042) 4%, rgba(78,78,91,0) 50%, rgba(28,23,23,0.9585084033613446) 98%)'
+        gradientMobile: 'linear-gradient(90deg, rgba(0,0,0,0.891281512605042) 4%, rgba(78,78,91,0) 50%, rgba(28,23,23,0.9585084033613446) 98%)',
+        gradientBoxColor: 'linear-gradient(90deg, rgba(29,0,48,1) 0%, rgba(6,0,69,1) 32%, rgba(45,3,79,1) 78%, rgba(0,0,0,1) 98%)'
       },
     },
   },
