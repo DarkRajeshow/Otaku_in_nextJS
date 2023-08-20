@@ -23,6 +23,13 @@ export const StoreProvider = ({ children }) => {
     const [currentRating, setCurrentRating] = useState(84.92);
     const [searchedAnimeName, setSearchedAnimeName] = useState("");
     const [isItSearchPage, setIsItSearchPage] = useState(false);
+    const [selectedGenres, setSelectedGenres] = useState("");
+    const [selectedYear, setSelectedYear] = useState("");
+    const [selectedAgeRating, setSelectedAgeRating] = useState('');
+    const [selectedEpisodeCount, setSelectedEpisodeCount] = useState(0);
+    const [selectedType, setSelectedType] = useState('');
+    const [selectedSortType, setSelectedSortType] = useState('');
+
 
     const handleStart = () => {
         setGenres([])
@@ -49,46 +56,69 @@ export const StoreProvider = ({ children }) => {
     }
 
     const searchAnime = async () => {
-        if (searchedAnimeName == "") {
-            try {
-                setLoading(true);
-                setInternetError(false);
-                setNoResult(false);
-                const searchedAnime = await fetch(`https://kitsu.io/api/edge/anime?sort=-averageRating,-popularityRank&page[limit]=20&fields[anime]=titles,description,posterImage,averageRating,episodeCount,status,youtubeVideoId,showType`);
-                const paredsearchedAnime = await searchedAnime.json();
-                setLoading(false);
-                if (paredsearchedAnime.data.length === 0) {
-                    setNoResult(true);
-                    setSearchedAnimeList([])
-                    return;
-                }
-                setSearchedAnimeList(paredsearchedAnime.data)
+        try {
+            setLoading(true);
+            setInternetError(false);
+            setNoResult(false);
+
+            const apiUrl = "https://kitsu.io/api/edge/anime";
+            const params = new URLSearchParams();
+
+            if (searchedAnimeName === "") {
+                let sortQuery = selectedSortType === "" ? "-averageRating,-popularityRank" : selectedSortType;
+                params.set("sort", sortQuery);
             }
-            catch {
-                setLoading(false);
-                setInternetError(true)
+
+            if (searchedAnimeName !== "") {
+                // await selectedGenres([])
+                params.set("filter[text]", searchedAnimeName);
             }
-            // https://kitsu.io/api/edge/anime?sort=-averageRating&page[limit]=20
+
+            if (selectedType !== "") {
+                params.set("filter[subtype]", selectedType);
+            }
+
+            if (selectedAgeRating !== "") {
+                params.set("filter[ageRating]", selectedAgeRating);
+            }
+
+            if (selectedGenres.length !== 0 && searchedAnimeName === "") {
+                params.set("filter[genres]", selectedGenres.join(","));
+            }
+
+            if (selectedYear !== "") {
+                params.set("filter[seasonYear]", selectedYear);
+            }
+
+
+            params.set("page[limit]", 20);
+            params.set("fields[anime]", "titles,description,posterImage,averageRating,episodeCount,status,youtubeVideoId,subtype,startDate,episodeLength");
+
+            const fullUrl = `${apiUrl}?${params.toString()}`;
+
+            console.log(fullUrl);
+            const searchedAnime = await fetch(fullUrl);
+
+            const parsedsearchedAnime = await searchedAnime.json();
+
+            const filteredData = parsedsearchedAnime.data.filter((anime) => {
+                return anime.attributes.episodeCount >= selectedEpisodeCount
+            })
+
+            if (filteredData.length === 0) {
+                setNoResult(true);
+                setLoading(false);
+                setSearchedAnimeList([])
+                return;
+            }
+
+            setLoading(false);
+
+            setSearchedAnimeList(filteredData)
         }
-        else {
-            try {
-                setLoading(true);
-                setInternetError(false);
-                setNoResult(false);
-                const searchedAnime = await fetch(`https://kitsu.io/api/edge/anime?filter[text]=${searchedAnimeName === "" ? "Attack on Titan" : searchedAnimeName}&page[limit]=20&fields[anime]=titles,description,posterImage,averageRating,episodeCount,status,youtubeVideoId,showType`);
-                const paredsearchedAnime = await searchedAnime.json();
-                setLoading(false);
-                if (paredsearchedAnime.data.length === 0) {
-                    setNoResult(true);
-                    setSearchedAnimeList([])
-                    return;
-                }
-                setSearchedAnimeList(paredsearchedAnime.data)
-            }
-            catch {
-                setLoading(false);
-                setInternetError(true)
-            }
+        catch {
+            setLoading(false);
+            setInternetError(true)
         }
 
     }
@@ -96,9 +126,6 @@ export const StoreProvider = ({ children }) => {
 
     //to check percentage match of search with result
     const calculateMatchPercentage = (searchInput, result) => {
-        if (searchInput === "" || !isItSearchPage) {
-            return "Check it out";
-        }
 
         const searchTerms = searchInput.toLowerCase().split(" ");
         const resultTerms = result.toLowerCase().split(" ");
@@ -117,15 +144,20 @@ export const StoreProvider = ({ children }) => {
         let matchPercentage = (matchedTerms / searchTerms.length) * 50;
         matchPercentage = Math.round(Math.min((minMatchPercentage + matchPercentage), 100));
 
-        return `${matchPercentage}% Match`;
+        return `${matchPercentage}`;
     };
 
 
     return (
-        <Contexts.Provider value={{ genres, setGenres, status, setStatus, rating, setRating, year, setYear, handleStart, NavigateHome, loading, setLoading, AnimeId, setAnimeId, videoId, setvideoId, shortDescription, setShortDescription, reviews, setReviews, noResult, setNoResult, internetError, setInternetError, currentRating, setCurrentRating, searchedAnimeList, setSearchedAnimeList, searchedAnimeName, setSearchedAnimeName, searchAnime, calculateMatchPercentage, setIsItSearchPage, currentAnimeOverview, setCurrentAnimeOverview, navigateSearchPage }}>
+        <Contexts.Provider value={{ genres, setGenres, status, setStatus, rating, setRating, year, setYear, handleStart, NavigateHome, loading, setLoading, AnimeId, setAnimeId, videoId, setvideoId, shortDescription, setShortDescription, reviews, setReviews, noResult, setNoResult, internetError, setInternetError, currentRating, setCurrentRating, searchedAnimeList, setSearchedAnimeList, searchedAnimeName, setSearchedAnimeName, searchAnime, calculateMatchPercentage, setIsItSearchPage, currentAnimeOverview, setCurrentAnimeOverview, navigateSearchPage, selectedGenres, setSelectedGenres, selectedYear, setSelectedYear, selectedAgeRating, setSelectedAgeRating, selectedEpisodeCount, setSelectedEpisodeCount, selectedType, setSelectedType, selectedSortType, setSelectedSortType }}>
 
             <div>{children}</div>
 
         </Contexts.Provider>
     )
 }
+
+
+
+
+// `https://kitsu.io/api/edge/anime?${selectedGenres.length !== 0 ? `filter[genres]=${selectedGenres.join(",")}` : ""}${selectedType !== "" ? `&filter[subtype]=${selectedType}` : ""}${selectedAgeRating !== "" ? `&filter[ageRating]=${selectedAgeRating}` : ""}${searchedAnimeName !== "" ? `&filter[text]=${searchedAnimeName}` : ""}${selectedYear !== "" ? `&filter[seasonYear]=${selectedYear}` : ""}${selectedSortType === "" ? '&sort=-averageRating,-popularityRank&page' : `&sort=${selectedSortType}`}&page[limit]=20&fields[anime]=titles,description,posterImage,averageRating,episodeCount,status,youtubeVideoId,subtype,startDate,episodeLength`

@@ -114,8 +114,6 @@ export default function Choice() {
                 }}
             >
             </motion.div>}
-
-
         </>
     );
 }

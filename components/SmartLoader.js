@@ -1,12 +1,12 @@
 import { motion } from 'framer-motion'
 import React from 'react'
 
-export default function SmartLoader() {
+export default function SmartLoader({ height = "screen" }) {
     return (
-        <div className='w-full h-screen flex items-center justify-center'>
+        <div className={`w-full h-${height} flex items-center justify-center`}>
             <motion.div className="flex "
                 initial={{
-                    opacity: 0.1
+                    opacity: 0.7
                 }}
                 animate={{
                     opacity: 1,

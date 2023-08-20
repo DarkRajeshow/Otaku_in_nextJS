@@ -88,7 +88,7 @@ export default function Hero2() {
                 className='w-full flex flex-col items-center mt-[-20vh] md:mt-32 my-32'
             >
                 <div className='text-center w-[80%] sm:w-[60%]'>
-                    <AnimateText className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold pb-3 mt-10' text={"Let's Dive into the world of anime Movies!"} />
+                    <AnimateText className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold pb-3 mt-10' text={"Let's Dive into the colorful world of anime Movies!"} />
                     <motion.p className='text-sm sm:text-base md:text-md lg:text-lg'
                         
                     >Are you ready to explore the captivating world of anime movies?</motion.p>
