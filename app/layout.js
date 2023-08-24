@@ -2,6 +2,7 @@ import { StoreProvider } from '@/context/Store'
 import '../styles/globals.css'
 import { Montserrat } from 'next/font/google'
 import NavBar from '@/components/NavBar'
+import Footer from '@/components/Footer'
 
 
 const montserrat = Montserrat({
@@ -20,8 +21,9 @@ export default function RootLayout({ children }) {
       <body className={`${montserrat.className} m-auto bg-dark w-[100vw] min-h-screen text-light`}>
         <StoreProvider>
           <div>
-            <NavBar/>
+            <NavBar />
             {children}
+            <Footer />
           </div>
         </StoreProvider>
       </body>

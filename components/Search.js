@@ -11,14 +11,7 @@ import { FaArrowAltCircleUp } from 'react-icons/fa';
 
 export default function Search() {
 
-  const { searchedAnimeList, loading, noResult, internetError, searchAnime, searchedAnimeName } = useContext(Contexts);
-
-  // if (searchedAnimeName === "") {
-  //   document.title = "Otaku : Search Anime"
-  // }
-  // else{
-  //   document.title = `Otaku : Searched for "${searchedAnimeName}"`
-  // }
+  const { searchedAnimeList, loading, noResult, internetError, searchAnime } = useContext(Contexts);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -89,7 +82,7 @@ export default function Search() {
         </>
       )}
       {(loading) && <SmartLoader height='[70vh]' />}
-      {((internetError && noResult) || (internetError)) && <InternetError tryAgain={searchAnime} />}
+      {((internetError && noResult) || (internetError)) && <InternetError isTryAgainRequired={false} />}
       {((!internetError && noResult)) && <NoResultFound errorMessage="Result Not Found." tryAgain={searchAnime} />}
 
     </>

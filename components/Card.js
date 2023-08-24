@@ -2,25 +2,25 @@ import React, { useContext, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Contexts } from '@/context/Store';
 import { useRouter } from 'next/navigation';
+import blurImage from '@/public/blurImage2.png'
 import { FaBroadcastTower, FaCalendar, FaCalendarAlt, FaCheckCircle, FaClock, FaFilm, FaHistory, FaPlay, FaPlayCircle, FaStar } from 'react-icons/fa';
+import Image from 'next/image';
 
 export default function Card(props) {
-    const { setAnimeId, setvideoId, setShortDescription, setCurrentRating, searchedAnimeName, calculateMatchPercentage, setCurrentAnimeOverview } = useContext(Contexts);
+    const { setAnimeId, calculateMatchPercentage, searchedAnimeName } = useContext(Contexts);
     const [isCardHovered, setIsCardHovered] = useState(false)
+    const [isImageLoaded, setIsImageLoaded] = useState(false)
     const navigate = useRouter();
 
 
     const openOverview = async () => {
-        await setCurrentAnimeOverview((props.card.attributes.titles.en ? props.card.attributes.titles.en : props.card.attributes.titles.en_us ? props.card.attributes.titles.en_us : props.card.attributes.titles.en_jp ? props.card.attributes.titles.en_jp : props.card.attributes.titles.ja_jp ? props.card.attributes.titles.ja_jp : ""))
-        await setAnimeId(props.card.id);
-        await setvideoId(props.card.attributes.youtubeVideoId);
-        await setShortDescription(props.card.attributes.description);
-        await setCurrentRating(props.card.attributes.averageRating);
-        navigate.push("/overview")
+        await setAnimeId(props.card.id)
+        navigate.push(`search/${props.card.id}`)
     }
 
-    const gradientStyleForMobile = {
-        backgroundImage: `url(${props.card.attributes.posterImage.original})`,
+
+    const gradienttest = {
+        backgroundImage: `url(${blurImage.src})`,
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
@@ -58,11 +58,14 @@ export default function Card(props) {
         }
     }
 
+
+    const TransitionStyle = isImageLoaded ? {} : { type: "just", duration: 2, repeat: Infinity }
     const title = props.card.attributes.titles.en ? props.card.attributes.titles.en : props.card.attributes.titles.en_us ? props.card.attributes.titles.en_us : props.card.attributes.titles.en_jp ? props.card.attributes.titles.en_jp : props.card.attributes.titles.ja_jp ? props.card.attributes.titles.ja_jp : "Not Registered Yet"
 
     return (
         <>
-            <motion.div className="relative card h-[600px] text-white rounded-md overflow-hidden border-[1px] border-light sm:cursor-pointer"
+            <motion.div className="relative card h-[550px] text-white rounded-md overflow-hidden border-[1px] border-light sm:cursor-pointer"
+                // style={gradiettest}
                 onClick={handleCardClick}
                 onHoverStart={handleMousehover}
                 onHoverEnd={handleMouseDown}
@@ -81,14 +84,14 @@ export default function Card(props) {
                     once: true
                 }}
             >
-
-                <motion.div className="relative image h-full w-full overflow-hidden bg-black m-auto rounded-t-xl"
-                    style={gradientStyleForMobile}
+                <motion.div className='h-full w-full overflow-hidden bg-transparent m-auto rounded-t-xl'
+                    style={gradienttest}
                     initial={{
                         opacity: 0
                     }}
                     animate={{
-                        opacity: 1,
+                        opacity: isImageLoaded ? 1 : [0.1, 0.3, 0.1],
+                        transition: TransitionStyle
                     }}
                     whileHover={{
                         scale: 1.1,
@@ -102,11 +105,25 @@ export default function Card(props) {
                         duration: 0.3,
                     }}
                 >
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        <Image className="image h-[550px] w-full overflow-hidden bg-transparent m-auto rounded-t-xl bg-cover bg-no-repeat bg-center"
+                            onLoad={() => { setIsImageLoaded(true) }}
+                            src={props.card.attributes.posterImage.original}
+                            width={400}
+                            height={1000}
+                            alt='Anime Poster'
+                        />
+                    </motion.div>
                 </motion.div>
+
                 <div className="text py-4 px-5 absolute bottom-0 w-full"
                     style={textGradient}
                 >
-
                     <div className='mb-3'>
                         <h2 className='text-lg min-[400px]:text-xl sm:text-lg lg:text-xl font-bold pb-1 '>{title}</h2>
                         {searchedAnimeName !== "" && <p

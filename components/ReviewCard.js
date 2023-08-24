@@ -3,9 +3,10 @@ import RatingStars from './RatingStars';
 import { motion } from 'framer-motion';
 import { FaRegThumbsUp, FaThumbsUp, FaUserCircle } from 'react-icons/fa';
 
-export default function ReviewCard(props) {
+export default function ReviewCard({ review }) {
 
-    const dateString = props.review.attributes.createdAt;
+
+    const dateString = review.uploadDate;
     const date = new Date(dateString);
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     const formatedPublishedDate = date.toLocaleDateString('en-US', options);
@@ -15,20 +16,20 @@ export default function ReviewCard(props) {
 
     const [isLiked, setIsLiked] = useState(false);
 
-    const [likesCount, setLikesCount] = useState(props.review.attributes.likesCount);
+    const [likesCount, setLikesCount] = useState(review.likeCount);
 
-    let shortDescriptionSplited = props.review.attributes.contentFormatted.split(" ");
+    const shortDescriptionSplited = review.description.split(" ");
     const toggleExpand = () => {
         setIsExpanded(!isExpanded);
     };
 
     const truncatedContent = shortDescriptionSplited.slice(0, 60).join(" ") + (((!isExpanded) && shortDescriptionSplited.length > 60) ? " . . . ." : "");
     const shouldTruncate = shortDescriptionSplited.length > 60;
-    let review = isExpanded ? props.review.attributes.contentFormatted : truncatedContent;
+    const reviewDescription = isExpanded ? review.description : truncatedContent;
 
     return (
         <>
-            <motion.div className="reviewBox py-4 bg-[#0000003b] p-8 rounded-xl my-5"
+            <motion.div className="reviewBox p-4 bg-[#0000003b] rounded-xl mb-2 sm:mb-3 md:mb-4 lg:mb-5"
                 initial={{
                     opacity: 0,
                     x: "10vh"
@@ -45,26 +46,29 @@ export default function ReviewCard(props) {
                 whileTap={{
                     scale: 0.995,
                 }}
+                viewport={{
+                    once: true
+                }}
             >
                 <div className="content"
                     onClick={toggleExpand}
                 >
-                    <div className="heading mb-5">
-                        <span className='text-3xl font-bold capitalize'> <FaUserCircle className="fa-sitemap text-3xl md:text-4xl lg:text-5xl pr-3 inline" />{`${props.RandomNames[props.index].firstName} ${props.RandomNames[props.index].lastName}`} </span>
-                        <div className='text-gray-400 font-bold'>On {formatedPublishedDate}</div>
-                        <div className='pr-10'><RatingStars rating={props.review.attributes.rating} /></div>
+                    <div className="heading mb-2 md:mb-5">
+                        <span className='text-xl md:text-2xl lg:text-3xl font-bold capitalize'> <FaUserCircle className="fa-sitemap text-3xl md:text-3xl lg:text-5xl pr-2 md:pr-3 inline" />{`${review.name.firstName} ${review.name.lastName}`} </span>
+                        <div className='text-sm md:text-base text-gray-400 font-bold'>On {formatedPublishedDate}</div>
+                        <div className='pr-10'><RatingStars rating={review.rating} /></div>
                     </div>
 
                     <div className="textReview">
-                        <div className="review-content text-justify" dangerouslySetInnerHTML={{ __html: review }}></div>
+                        <div className="review-content text-xs min-[400px]:text-sm md:text-base " dangerouslySetInnerHTML={{ __html: reviewDescription }}></div>
                         {shouldTruncate && (
-                            <p className="text-sky-200 font-medium cursor-pointer">
+                            <p className="text-xs min-[400px]:text-sm md:text-base text-sky-200 font-medium cursor-pointer">
                                 {isExpanded ? 'Show Less' : 'Show More'}
                             </p>
                         )}
                     </div>
                 </div>
-                <div className="rating flex py-5"
+                <div className="rating flex py-2 md:py-5 text-lg md:text-xl"
                     onClick={() => {
                         setIsLiked(!isLiked);
                         if (!isLiked) {
@@ -75,8 +79,8 @@ export default function ReviewCard(props) {
                         }
                     }}
                 >
-                    <div className='pr-10 text-xl'>
-                        <span className='pr-2'>{likesCount} {isLiked ? <FaThumbsUp className='inline ml-1 pb-1 text-2xl' /> : <FaRegThumbsUp className='inline ml-1 pb-1 text-2xl' />}</span>
+                    <div className='pr-10'>
+                        <span className='pr-2'>{likesCount} {isLiked ? <FaThumbsUp className='inline ml-1 pb-1 text-xl md:text-[22px]' /> : <FaRegThumbsUp className='inline ml-1 pb-1 text-xl md:text-[22px]' />}</span>
                     </div>
                 </div>
 

@@ -1,10 +1,11 @@
 import OverviewPage from '@/components/OverviewPage'
 import React from 'react'
 
-export default function Overview() {
+export default function page({ params }) {
+    const id = params.animeId;
     return (
         <div>
-            <OverviewPage />
+            <OverviewPage id={id} />
         </div>
     )
 }

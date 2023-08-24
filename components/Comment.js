@@ -1,16 +1,30 @@
 import React, { useState, useContext } from 'react';
 import { motion } from 'framer-motion';
 import { Contexts } from '@/context/Store';
+import { FaPlusCircle } from 'react-icons/fa';
 
 const AddReview = () => {
 
-    const { reviews, setReviews, setNoResult } = useContext(Contexts);
-    const [userName, setUserName] = useState('');
+    const { reviewsData, setReviewsData, setNoResult } = useContext(Contexts);
+    const [userName, setUserName] = useState({
+        firstName: "",
+        lastName: ""
+    });
     const [description, setDescription] = useState('');
-    const [starRating, setStarRating] = useState(0);
+    const [starRating, setStarRating] = useState("");
 
-    const handleUserNameChange = (e) => {
-        setUserName(e.target.value);
+    const handleUserFirstNameChange = (e) => {
+        setUserName({
+            ...userName,
+            firstName: e.target.value,
+        });
+    };
+
+    const handleUserlastNameChange = (e) => {
+        setUserName({
+            ...userName,
+            lastName: e.target.value,
+        });
     };
 
     const handleDescriptionChange = (e) => {
@@ -30,29 +44,32 @@ const AddReview = () => {
     };
 
     const handleSubmit = (e) => {
+
         e.preventDefault();
 
         const NewReview = [
             {
-                attributes: {
-                    likesCount: 0,
-                    createdAt: new Date(),
-                    contentFormatted: description,
-                    source: userName,
-                    rating: starRating * 4
-                }
+                id: Math.random() * 1000,
+                name: userName,
+                description: description,
+                rating: starRating * 4,
+                uploadDate: new Date(),
+                likeCount: 0,
             }
         ]
-        console.log(NewReview);
-        const NewReviews = [...reviews, ...NewReview]
-        console.log(NewReview);
-        setReviews(NewReviews);
+        const NewReviews = [...NewReview, ...reviewsData]
+        setReviewsData(NewReviews);
+
+        alert("Your review added successfully!");
 
         // Perform the necessary actions to submit the review, e.g., send data to the server
         // Reset the form fields
 
         setNoResult(false);
-        setUserName('');
+        setUserName({
+            firstName: "",
+            lastName: ""
+        });
         setDescription('');
         setStarRating(0);
     };
@@ -86,14 +103,12 @@ const AddReview = () => {
     };
 
     return (
-        <motion.div className="bg-black p-8 rounded-xl"
+        <motion.div className="rounded-md bg-light/5 backdrop-blur-md my-1 p-8"
             initial={{
                 opacity: 0,
-                y: "20vh"
             }}
             whileInView={{
                 opacity: 1,
-                y: 0,
                 transition: {
                     type: "just",
                     duration: 0.7,
@@ -104,35 +119,49 @@ const AddReview = () => {
                 scale: 0.995,
             }}
         >
-            <h2 className="md:text-[3rem] text-[2rem] text-white mb-4 text-center font-bold ">Add Your Review</h2>
-            <form onSubmit={handleSubmit}>
+            <h2 className="text-lg md:text-[2rem] lg:text-[3rem] text-white mb-4 text-center font-bold ">Add Your Review</h2>
+            <form onSubmit={handleSubmit} className='text-sm md:text-base'>
                 <div className="mb-4">
-                    <label htmlFor="userName" className="text-white block mb-2">
-                        Your Name:
+                    <label htmlFor="userName" className="text-white block mb-2 font-bold">
+                        First Name:
                     </label>
                     <input
                         type="text"
                         id="userName"
-                        className="bg-[#0000003b] border-2 border-gray-600 rounded-md px-4 py-2 w-full text-white"
-                        value={userName}
-                        onChange={handleUserNameChange}
+                        className="bg-[#0000003b] border-2 border-[#322b2b] rounded-sm px-4 py-2 w-full text-white"
+                        value={userName.firstName}
+                        onChange={handleUserFirstNameChange}
+                        required
+                    />
+                </div>
+
+                <div className="mb-4">
+                    <label htmlFor="userName" className="text-white block mb-2 font-bold">
+                        Last Name:
+                    </label>
+                    <input
+                        type="text"
+                        id="userName"
+                        className="bg-[#0000003b] border-2 border-[#322b2b] rounded-sm px-4 py-2 w-full text-white"
+                        value={userName.lastName}
+                        onChange={handleUserlastNameChange}
                         required
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="description" className="text-white block mb-2">
+                    <label htmlFor="description" className="text-white block mb-2 font-bold">
                         Description:
                     </label>
                     <textarea
                         id="description"
-                        className="bg-[#0000003b] border-2 border-gray-600 rounded-md px-4 py-2 w-full text-white h-[200px]"
+                        className="bg-[#0000003b] border-2 border-[#322b2b] rounded-sm px-4 py-2 w-full text-white h-[200px]"
                         value={description}
                         onChange={handleDescriptionChange}
                         required
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="starRating" className="text-white block mb-2">
+                    <label htmlFor="starRating" className="text-white block mb-2 font-bold">
                         Rating:
                     </label>
                     <div className="flex items-center">
@@ -144,7 +173,7 @@ const AddReview = () => {
                             min="0"
                             max="5"
                             step="0.5"
-                            className="bg-[#0000003b] border border-white rounded-md px-4 py-2 w-20 text-white"
+                            className="bg-[#0000003b] border border-[#322b2b] rounded-sm px-4 py-2 w-20 text-white"
                             onChange={handleRatingChange}
                             required
                         />
@@ -152,7 +181,7 @@ const AddReview = () => {
                 </div>
 
                 <div className="button">
-                    <motion.button className='border-black mt-7 mx-5 border-2 px-6 py-2 mr-10 rounded-[30px] font-bold bg-white text-black mb-10 m-auto'
+                    <motion.button className='border-light mt-7 mx-5 border-2 px-6 py-2 mr-10 rounded-[30px] font-bold text-green border-dashed mb-10 m-auto flex items-center'
                         type="submit"
                         initial={{
                             scale: 1,
@@ -170,7 +199,7 @@ const AddReview = () => {
                             transition: { type: 'spring', duration: 0.5 },
                         }}
 
-                    >Submit Review !</motion.button>
+                    ><FaPlusCircle className='mr-2' /> Submit!</motion.button>
                 </div>
             </form>
         </motion.div>

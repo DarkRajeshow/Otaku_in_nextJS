@@ -36,7 +36,7 @@ export default function Footer() {
             </div>
             <div className="contacttext font-medium text-xs min-[400px]:text-sm sm:text-base col-span-6 min-[400px]:col-span-7 lg:col-span-8 flex flex-col justify-center">
                 <h1 className='font-bold'>© <Link href={"/"} className='underline underline-offset-4 text-adventure'>otakuuniverse.vercel.app</Link> All rights reserved.</h1>
-                <p>we do not store any files on our server. Our website only provides links to media content that is hosted on third-party services. A big credit goes to <strong>kitsuApi</strong> which provides valuable data for free.</p>
+                <p className='hidden md:block'>we do not store any files on our server. Our website only provides links to media content that is hosted on third-party services. A big credit goes to <strong>kitsuApi</strong> which provides valuable data for free.</p>
             </div>
         </div>
     )

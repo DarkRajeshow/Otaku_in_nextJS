@@ -2,7 +2,7 @@
 import React, { useContext, useRef, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Contexts } from '@/context/Store';
-import { FaClosedCaptioning, FaCross, FaFilter, FaLandmark, FaPowerOff, FaSearch } from 'react-icons/fa';
+import { FaFilter, FaPowerOff, FaSearch } from 'react-icons/fa';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import logo from '@/public/logo.jpeg'
@@ -18,7 +18,7 @@ export default function NavBar() {
         { value: 'PG', label: 'PG - Above 13' },
         { value: 'R', label: 'R - 17+ violence' },
     ];
-    const { NavigateHome, navigateSearchPage, searchedAnimeName, searchAnime, setSearchedAnimeName, setIsItSearchPage, selectedGenres, setSelectedGenres, selectedYear, setSelectedYear, selectedAgeRating, setSelectedAgeRating, selectedEpisodeCount, setSelectedEpisodeCount, selectedType, setSelectedType, selectedSortType, setSelectedSortType } = useContext(Contexts);
+    const { NavigateHome, navigateSearchPage, searchedAnimeName, searchAnime, setSearchedAnimeName, selectedGenres, setSelectedGenres, selectedYear, setSelectedYear, selectedAgeRating, setSelectedAgeRating, selectedEpisodeCount, setSelectedEpisodeCount, selectedType, setSelectedType, selectedSortType, setSelectedSortType, setSelectedCategory, selectedCategory } = useContext(Contexts);
 
     const pathname = usePathname();
 
@@ -121,19 +121,11 @@ export default function NavBar() {
         setSelectedEpisodeCount(event.target.value);
     };
 
-    useEffect(() => {
-        console.log(searchedAnimeName);
-    }, [searchedAnimeName])
-
 
     useEffect(() => {
         if (pathname === '/search' && inputRef.current) {
             searchAnime();
-            setIsItSearchPage(true);
             inputRef.current.focus();
-        }
-        else {
-            setIsItSearchPage(false);
         }
         const handleResize = () => {
             if (window.innerWidth <= 400) {
@@ -392,6 +384,23 @@ export default function NavBar() {
                     </div>
                 </div>
 
+                {selectedCategory !== "" && <div className='my-5'>
+                    <div className='flex flex-col py-3 '>
+                        <h1 className='text-base sm:text-xl text-light mr-2'>Categories : </h1>
+                        {selectedCategory !== "" && <h1 className='text-base sm:text-sm text-action'>**Search by category only applicable with the results genre navigation.</h1>}
+                    </div>
+                    <div className='text-center grid grid-cols-2 min-[400px]:grid-cols-3 sm:grid-cols-4 md:grid-cols-5'>
+                        <span className={`cursor-pointer px-8 py-1 rounded-2xl bg-comedy/20 border-[1px] border-transparent text-xs sm:text-sm !bg-comedy text-light border-dark mr-5 capitalize`}>
+                            {selectedCategory}
+                        </span>
+                    </div>
+                    <button className='px-3 py-1 bg-black text-light my-3 rounded-md' onClick={() => {
+                        setSelectedCategory("");
+                        searchAnime();
+                    }}
+                    >Remove</button>
+                </div>}
+
                 <div className="grid grid-cols-2 gap-2">
                     <button className='p-3 bg-psychological my-3 rounded-md' onClick={() => {
                         setIsFilterOpened(false);
@@ -405,6 +414,7 @@ export default function NavBar() {
                         await setSelectedType("")
                         await setSelectedYear("")
                         await setSelectedGenres([])
+                        await setSelectedCategory('')
                     }}>Clear Filters</button>
                 </div>
             </div>}

@@ -1,7 +1,7 @@
 import { Contexts } from '@/context/Store'
 import { motion } from 'framer-motion'
-import React, { useContext, useEffect, useState } from 'react'
-import { FaCalendar, FaClock, FaFilm, FaPlayCircle, FaInfoCircle, FaStar, FaTv, FaDotCircle } from 'react-icons/fa'
+import React, { useEffect, useState } from 'react'
+import { FaCalendar, FaClock, FaFilm, FaPlayCircle, FaInfoCircle, FaStar, FaDotCircle } from 'react-icons/fa'
 
 export default function CarousalCard({ anime, gradientStyle, title, index, openOverview, CategoryColors }) {
 
@@ -12,7 +12,6 @@ export default function CarousalCard({ anime, gradientStyle, title, index, openO
     // fetchAnimeLinks
     const fetchAnimeGenres = async () => {
         try {
-
             const unParsedGenresList = await Promise.all(
                 genreData.map((genre) => fetch(`${genreBaseUrl}${genre.id}`).then(response => response.json()))
             );
@@ -33,7 +32,7 @@ export default function CarousalCard({ anime, gradientStyle, title, index, openO
         <div className="embla__slide" key={anime.id}>
             <div className="image">
                 <div
-                    className="w-screen h-[70vh] md:h-screen "
+                    className="w-screen h-[70vh] md:h-[100vh]"
                     style={gradientStyle}
                 >
                     <div className='gradientDiv text-light relative top-[40%] sm:top-0 sm:translate-y-[5%] md:translate-y-[30%] left-10 w-[60%] md:w-[50%]'>
@@ -78,7 +77,7 @@ export default function CarousalCard({ anime, gradientStyle, title, index, openO
                         </motion.div>}
                         <p className='text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold flex items-center '><FaStar className='mr-2 text-fantasy' /> {Math.round(anime.attributes.averageRating) / 10}</p>
                         <button className='text-sm md:text-base font-bold p-2 md:px-4 md:py-3 bg-light text-dark rounded-lg my-4 flex items-center '
-                            onClick={openOverview.bind(null, index)}
+                            onClick={openOverview.bind(null, anime.id)}
                         >More Details <FaInfoCircle className='ml-2 text-xl' /> </button>
                     </div>
                 </div>

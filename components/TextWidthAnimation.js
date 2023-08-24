@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 export default function TextWidthAnimation({ index, className = "", setImageIndex, imageIndex,offSetPage }) {
     return (
         <div className='flex items-center my-32 w-[20vw]'>
-            <div className='overflow-hidden flex w-[25vw] sm:w-[20vw] items-center ' onMouseOver={() => {
+            <div className='overflow-hidden flex w-[25vw] sm:w-[20vw] items-center cursor-pointer' onMouseOver={() => {
                 setImageIndex(index);
             }}>
                 <motion.h1 className={`font-bold capitalize overflow-hidden absolute ${className}`}

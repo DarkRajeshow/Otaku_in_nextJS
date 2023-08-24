@@ -1,16 +1,15 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 
-export default function InternetError(props) {
+export default function InternetError({ isTryAgainRequired = true, tryAgainMethod }) {
     return (
         <>
             <div className="container m-auto text-center border-b-2 border-white mb-40 border-spacing-2 py-3 scale-[0.8] md:scale-100">
-                <div className="md:h-[320px] px-5 h-[380px] overflow-hidden bg-black rounded-lg">
-                    <i className="fa-regular fa-face-grin-beam-sweat text-6xl text-[#c1daff] m-10 mb-5"></i>
+                <div className="px-[7.5%] py-20 overflow-hidden bg-black rounded-lg">
                     <h2 className='text-4xl font-bold text-center pb-3 '>Internet Connection lost.</h2>
                     <p className='text-lg text-center pb-3'>A disruption in the network connection preventing access to the internet.</p>
 
-                    <motion.button className='border-white border-2 px-8 py-2 rounded-[30px] font-semibold mt-5'
+                    {isTryAgainRequired && <motion.button className='border-white border-2 px-8 py-2 rounded-[30px] font-semibold mt-5'
 
                         initial={{
                             scale: 3,
@@ -31,8 +30,8 @@ export default function InternetError(props) {
                             scale: 1,
                             transition: { type: 'tween', duration: 1 },
                         }}
-                        onClick={props.tryAgain}
-                    >Try Again.</motion.button>
+                        onClick={tryAgain}
+                    >Try Again.</motion.button>}
                 </div>
             </div>
         </>

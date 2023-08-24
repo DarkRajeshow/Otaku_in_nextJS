@@ -10,7 +10,7 @@ import CarousalCard from './CarousalCard'
 import SmartLoader from './SmartLoader'
 
 export default function Hero() {
-    const { setCurrentAnimeOverview, setAnimeId, setvideoId, setShortDescription, setCurrentRating, loading, setLoading, internetError, setInternetError } = useContext(Contexts)
+    const { setAnimeId, loading, setLoading } = useContext(Contexts)
     const navigate = useRouter();
     const Categories = [
         "All",
@@ -56,26 +56,22 @@ export default function Hero() {
     }, [emblaApi])
 
 
-    const openOverview = async (index) => {
-        await setCurrentAnimeOverview((heroData[index].attributes.titles.en ? heroData[index].attributes.titles.en : heroData[index].attributes.titles.en_us ? heroData[index].attributes.titles.en_us : heroData[index].attributes.titles.en_jp ? heroData[index].attributes.titles.en_jp : heroData[index].attributes.titles.ja_jp ? heroData[index].attributes.titles.ja_jp : ""))
-        await setAnimeId(heroData[index].id);
-        await setvideoId(heroData[index].attributes.youtubeVideoId);
-        await setShortDescription(heroData[index].attributes.description);
-        await setCurrentRating(heroData[index].attributes.averageRating);
-        navigate.push("/overview")
+    const openOverview = async (id) => {
+        await setAnimeId(id)
+        navigate.push(`/search/${id}`)
     }
-
 
     const fetchHeroAnimeList = async () => {
         try {
             setLoading(true);
+
 
             const apiUrl = "https://kitsu.io/api/edge/anime";
             const queryParams = new URLSearchParams({
                 include: "genres",
                 sort: "popularityRank",
                 "page[limit]": 10,
-                "filter[categories]": `${generForHero}`,
+                "filter[categories]": `${generForHero === "All" ? "action,adventure,comedy" : generForHero}`,
             });
 
             const animeData = await fetch(`${apiUrl}?${queryParams}`);
@@ -117,7 +113,7 @@ export default function Hero() {
                 {Categories.map((Category, index) => {
                     return (
                         <span
-                            className={`font-bold rounded-[30px] flex items-center justify-center cursor-pointer p-3 ${CategoryColors[index]} ${Category === generForHero ? 'bg-black border-[1px] border-light' : ''}`}
+                            className={`font-bold rounded-full flex items-center justify-center cursor-pointer p-3 ${CategoryColors[index]} ${Category === generForHero ? 'bg-black border-[1px] border-light' : ''}`}
                             key={index}
                             onClick={() => {
                                 setgenerForHero(Category);
@@ -130,20 +126,17 @@ export default function Hero() {
                 })}
                 <span className='-left-10 w-5 bottom-64 relative text-xl bg-light text-dark rounded-md' onClick={() => { setIsExpanded(!isExpanded) }}>{isExpanded ? <FaCaretUp /> : <FaCaretDown />}</span>
 
-
             </motion.div >
             {loading && <SmartLoader />}
             {
                 (heroData.length !== 0 && !loading) && <motion.div className="embla" ref={emblaRef}
                     initial={{
                         opacity: 0,
-
                     }}
                     animate={{
                         opacity: 1,
                         transition: {
-                            duration: 1,
-
+                            duration: 1
                         }
                     }}
                 >
@@ -166,9 +159,7 @@ export default function Hero() {
                             };
 
                             return (
-                                <>
-                                    <CarousalCard CategoryColors={CategoryColors} key={anime.id} index={index} anime={anime} gradientStyle={gradientStyle} title={title} openOverview={openOverview} />
-                                </>
+                                <CarousalCard CategoryColors={CategoryColors} key={anime.id} index={index} anime={anime} gradientStyle={gradientStyle} title={title} openOverview={openOverview} />
                             );
                         })}
                     </div>

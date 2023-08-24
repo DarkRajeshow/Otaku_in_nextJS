@@ -11,7 +11,7 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 
 export default function Hero2() {
 
-    const { setCurrentAnimeOverview, setAnimeId, setvideoId, setShortDescription, setCurrentRating } = useContext(Contexts)
+    const { setAnimeId } = useContext(Contexts)
     const navigate = useRouter();
     const titlesForHero2 = ["#1Rank", "#2Rank", "#3Rank", "#4Rank", "#5Rank"];
     const [topMoviesData, setTopMoviesData] = useState([])
@@ -44,9 +44,9 @@ export default function Hero2() {
         "#FBBF24",     // shounen
         "#DC2626",     // thriller
         "#EC4899"      // all
-      ];
+    ];
 
-      const fetchMovieData = async () => {
+    const fetchMovieData = async () => {
         try {
             setIsLoading(true);
             const apiUrl = "https://kitsu.io/api/edge/anime";
@@ -64,16 +64,12 @@ export default function Hero2() {
             setIsLoading(false);
         } catch (error) {
             // Handle the error here, without logging anything to the console
-        } 
+        }
     };
 
-    const openOverview = async (index) => {
-        await setCurrentAnimeOverview((topMoviesData[index].attributes.titles.en ? topMoviesData[index].attributes.titles.en : topMoviesData[index].attributes.titles.en_us ? topMoviesData[index].attributes.titles.en_us : topMoviesData[index].attributes.titles.en_jp ? topMoviesData[index].attributes.titles.en_jp : topMoviesData[index].attributes.titles.ja_jp ? topMoviesData[index].attributes.titles.ja_jp : ""))
-        await setAnimeId(topMoviesData[index].id);
-        await setvideoId(topMoviesData[index].attributes.youtubeVideoId);
-        await setShortDescription(topMoviesData[index].attributes.description);
-        await setCurrentRating(topMoviesData[index].attributes.averageRating);
-        navigate.push("/overview")
+    const openOverview = (id) => {
+        setAnimeId(id);
+        navigate.push(`/search/${id}`)
     }
 
 
@@ -90,7 +86,7 @@ export default function Hero2() {
                 <div className='text-center w-[80%] sm:w-[60%]'>
                     <AnimateText className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold pb-3 mt-10' text={"Let's Dive into the colorful world of anime Movies!"} />
                     <motion.p className='text-sm sm:text-base md:text-md lg:text-lg'
-                        
+
                     >Are you ready to explore the captivating world of anime movies?</motion.p>
                 </div>
                 <div className='flex items-center justify-center'>
@@ -117,9 +113,7 @@ export default function Hero2() {
                                 };
 
                                 return (
-                                    <>
-                                        <MovieCard imageIndex={imageIndex} key={movie.id} index={index} rating={(Math.round(movie.attributes.averageRating)) / 10} gradientStyleForMobile={gradientStyleForMobile} title={title} openOverview={openOverview} offSetPage={offSetPage} duration={movie.attributes.episodeLength} />
-                                    </>
+                                    <MovieCard imageIndex={imageIndex} id={movie.id} key={movie.id} index={index} rating={(Math.round(movie.attributes.averageRating)) / 10} gradientStyleForMobile={gradientStyleForMobile} title={title} openOverview={openOverview} offSetPage={offSetPage} duration={movie.attributes.episodeLength} />
                                 );
                             })
                         }

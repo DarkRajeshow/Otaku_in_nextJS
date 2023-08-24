@@ -13,7 +13,7 @@ export default function LinkToPages() {
                 >Helping you find the perfect anime for your taste.</motion.p>
             </div>
             <div className='relative grid lg:grid-cols-2 w-[80%] gap-10 my-20 '>
-                <div className="bg-themeBgDark bg-center bg-no-repeat bg-cover grid1 px-10 py-8 rounded-[20px] text-left bg-black relative border-2 border-light">
+                <div className="px-10 py-8 rounded-[20px] text-left bg-black relative border-2 border-light">
                     {/* //this div-->> */}
                     <div className="col-span-4 p-5 top-0 left-0 inset-0.5 z-[-1] absolute w-[103%] sm:w-[102%] md:w-[101.3%] lg:w-[103%] h-[103%] border-2 border-dark rounded-[30px] bg-light" />
                     <h1 className='text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-5 text-primaryDark'><FaArrowAltCircleRight className='mb-3 text-green' />Find anime recommendations by answering a few simple questions.</h1>
@@ -22,7 +22,7 @@ export default function LinkToPages() {
                         <button className='border-2 border-light flex items-center bg-redBlack text-light font-bold p-3 rounded-lg text-sm sm:text-base md:text-md lg:text-lg my-5 hover:text-dark hover:bg-pinkBlue transition-[300ms]'><FaIndent className='mr-2 ' /> Discover Anime </button>
                     </Link>
                 </div>
-                <div className="grid1 px-10 py-8 rounded-[20px] text-left bg-black border-2 border-light relative bg-themeBgDark bg-center bg-no-repeat bg-cover">
+                <div className="px-10 py-8 rounded-[20px] text-left bg-black border-2 border-light relative">
                     {/* //and this div-->> */}
                     <div className="col-span-4 p-5 bg-light top-0 left-0 absolute w-[103%] sm:w-[102%] md:w-[101.3%] lg:w-[103%] h-[103%] border-2 border-dark rounded-[30px] inset-0.5 z-[-1]" />
                     <h1 className='text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-5 text-primaryDark'><FaArrowAltCircleRight className='mb-3 text-green' />Easily Serach, browse and discover anime in various categories.</h1>
