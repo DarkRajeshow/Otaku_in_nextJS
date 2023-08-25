@@ -11,7 +11,7 @@ import { FaArrowAltCircleUp } from 'react-icons/fa';
 
 export default function Search() {
 
-  const { searchedAnimeList, loading, noResult, internetError, searchAnime } = useContext(Contexts);
+  const { searchedAnimeList, loadingForSearch, noResult, internetError, searchAnime } = useContext(Contexts);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -41,14 +41,14 @@ export default function Search() {
           >Unveil the Epic World of Animated Wonders through Seamless Search! 🌟✨</motion.p>
         </div>
       </div>
-      {(!noResult && !internetError && !loading) && (
+      {(!noResult && !internetError && !loadingForSearch) && (
         <>
           <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 w-[90%] mx-auto gap-1 pb-10 mb-28">
             {searchedAnimeList.map((card, index) => (
               <Card card={card} index={index} key={card.id} />
             ))}
           </div>
-          {(!loading && searchedAnimeList.length !== 0) && <div className='flex items-center justify-center mb-32'>
+          {(!loadingForSearch && searchedAnimeList.length !== 0) && <div className='flex items-center justify-center mb-32'>
             <motion.button className='border-white border-2 p-2 sm:px-3 sm:py-1 md:px-4 md:py-2 rounded-[30px] font-semibold mx-auto text-xs sm:text-sm lg:text-base flex items-center'
 
               initial={{
@@ -81,7 +81,7 @@ export default function Search() {
 
         </>
       )}
-      {(loading) && <SmartLoader height='[70vh]' />}
+      {(loadingForSearch) && <SmartLoader height='[70vh]' />}
       {((internetError && noResult) || (internetError)) && <InternetError isTryAgainRequired={false} />}
       {((!internetError && noResult)) && <NoResultFound errorMessage="Result Not Found." tryAgain={searchAnime} />}
 

@@ -12,6 +12,7 @@ export const StoreProvider = ({ children }) => {
     const [status, setStatus] = useState("");
     const [year, setYear] = useState("");
     const [loading, setLoading] = useState(false);
+    const [loadingForSearch, setLoadingForSearch] = useState(false);
     const [AnimeId, setAnimeId] = useState("7442");
     const [searchedAnimeList, setSearchedAnimeList] = useState([]);
     const [noResult, setNoResult] = useState(false);
@@ -55,7 +56,7 @@ export const StoreProvider = ({ children }) => {
 
     const searchAnime = async () => {
         try {
-            setLoading(true);
+            setLoadingForSearch(true);
             setInternetError(false);
             setNoResult(false);
 
@@ -107,17 +108,17 @@ export const StoreProvider = ({ children }) => {
 
             if (filteredData.length === 0) {
                 setNoResult(true);
-                setLoading(false);
+                setLoadingForSearch(false);
                 setSearchedAnimeList([])
                 return;
             }
 
-            setLoading(false);
+            setLoadingForSearch(false);
 
             setSearchedAnimeList(filteredData)
         }
         catch {
-            setLoading(false);
+            setLoadingForSearch(false);
             setInternetError(true)
         }
 
@@ -268,7 +269,7 @@ export const StoreProvider = ({ children }) => {
 
 
     return (
-        <Contexts.Provider value={{ genres, setGenres, status, setStatus, rating, setRating, year, setYear, handleStart, NavigateHome, loading, setLoading, noResult, setNoResult, internetError, setInternetError, searchedAnimeList, setSearchedAnimeList, searchedAnimeName, setSearchedAnimeName, searchAnime, calculateMatchPercentage, navigateSearchPage, selectedGenres, setSelectedGenres, selectedYear, setSelectedYear, selectedAgeRating, setSelectedAgeRating, selectedEpisodeCount, setSelectedEpisodeCount, selectedType, setSelectedType, selectedSortType, setSelectedSortType, AnimeId, setAnimeId, fetchOverviewData, animeOverviewData, setAnimeOverviewData, reviewsData, setReviewsData, selectedCategory, setSelectedCategory }}>
+        <Contexts.Provider value={{ genres, setGenres, status, setStatus, rating, setRating, year, setYear, handleStart, NavigateHome, loading, setLoading, noResult, setNoResult, internetError, setInternetError, searchedAnimeList, setSearchedAnimeList, searchedAnimeName, setSearchedAnimeName, searchAnime, calculateMatchPercentage, navigateSearchPage, selectedGenres, setSelectedGenres, selectedYear, setSelectedYear, selectedAgeRating, setSelectedAgeRating, selectedEpisodeCount, setSelectedEpisodeCount, selectedType, setSelectedType, selectedSortType, setSelectedSortType, AnimeId, setAnimeId, fetchOverviewData, animeOverviewData, setAnimeOverviewData, reviewsData, setReviewsData, selectedCategory, setSelectedCategory,loadingForSearch, setLoadingForSearch }}>
 
             <div>{children}</div>
 
