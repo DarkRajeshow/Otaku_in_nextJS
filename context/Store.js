@@ -97,8 +97,6 @@ export const StoreProvider = ({ children }) => {
 
             const fullUrl = `${apiUrl}?${params.toString()}`;
 
-            console.log(fullUrl);
-
             const searchedAnime = await fetch(fullUrl);
 
             const parsedsearchedAnime = await searchedAnime.json();

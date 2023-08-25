@@ -3,7 +3,7 @@ import '../styles/globals.css'
 import { Montserrat } from 'next/font/google'
 import NavBar from '@/components/NavBar'
 import Footer from '@/components/Footer'
-
+import { usePathname } from 'next/navigation'
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -18,6 +18,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <meta charSet="UTF-8" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{metadata.title}</title>
+        <meta name="description" content={metadata.description} />
+      </head>
       <body className={`${montserrat.className} m-auto bg-dark w-[100vw] min-h-screen text-light`}>
         <StoreProvider>
           <div>
@@ -27,6 +34,6 @@ export default function RootLayout({ children }) {
           </div>
         </StoreProvider>
       </body>
-    </html>
+    </html >
   )
 }

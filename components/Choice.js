@@ -72,7 +72,7 @@ export default function Choice() {
             <div className="heading m-auto w-2/3 text-center my-16">
                 <div className='text-center'>
                     <AnimateText className='text-3xl min-[400px]:text-4xl md:text-5xl xl:text-6xl font-bold pb-3 mt-10' text={"Discover Your Perfect Match."} />
-                    <motion.p className='text-xs sm:text-sm md:text-base lg:text-lg'
+                    <motion.p className='text-xs sm:text-sm md:text-base lg:text-lg font-medium'
                         initial={{
                             opacity: 0
                         }}

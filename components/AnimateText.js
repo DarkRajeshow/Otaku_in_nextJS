@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react'
 import { motion } from 'framer-motion'
 
-export default function AnimateText({ text, className = "", durationtime = "0.5", isWord = false }) {
+export default function AnimateText({ text, colorful = false, className = "", durationtime = "0.5", isWord = false }) {
 
     const quatVarient = {
         initial: {
@@ -55,7 +55,7 @@ export default function AnimateText({ text, className = "", durationtime = "0.5"
         "#FBBF24",     // shounen
         "#DC2626",     // thriller
         "#EC4899"      // all
-      ];
+    ];
 
 
     return (
@@ -64,11 +64,11 @@ export default function AnimateText({ text, className = "", durationtime = "0.5"
             initial="initial"
             whileInView="whileInView"
             animate={{
-                color: colorCodes,
-                transition:{
-                    type:"just",
-                    duration:40,
-                    repeat:Infinity
+                color: colorful ? colorCodes : "#f5f5f5",
+                transition: {
+                    type: "just",
+                    duration: colorful ? 40 : 1,
+                    repeat: colorful ? Infinity : false,
                 }
             }}
         >

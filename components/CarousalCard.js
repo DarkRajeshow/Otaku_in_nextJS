@@ -56,7 +56,7 @@ export default function CarousalCard({ anime, gradientStyle, title, index, openO
                                 {anime.attributes.startDate}
                             </div>
                         </div>
-                        <p className='hidden sm:block md:text-base mb-5 mt-3'>{anime.attributes.description.length > 200 ? `${anime.attributes.description.split(" ").slice(0, 40).join(" ")}...` : anime.attributes.description}</p>
+                        <p className='hidden sm:block md:text-base mb-5 mt-3 font-medium'>{anime.attributes.description.length > 200 ? `${anime.attributes.description.split(" ").slice(0, 40).join(" ")}...` : anime.attributes.description}</p>
                         {genres.length !== 0 && <motion.div className={`hidden sm:flex text-[12px] md:text-sm lg:text-base mb-4`}
                             initial={{
                                 opacity: 0,
@@ -71,7 +71,7 @@ export default function CarousalCard({ anime, gradientStyle, title, index, openO
                         >
                             {genres.map((genre, index) => {
                                 return (
-                                    <p key={index} className={`mr-3 ${CategoryColors[index]} flex items-center`}><FaDotCircle className='mr-[2px]' />{genre}</p>
+                                    <p key={index} className={`mr-3 ${CategoryColors[index]} flex items-center font-medium`}><FaDotCircle className='mr-[2px]' />{genre}</p>
                                 )
                             })}
                         </motion.div>}

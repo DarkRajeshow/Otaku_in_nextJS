@@ -80,7 +80,7 @@ export default function ReviewCard({ review }) {
                     }}
                 >
                     <div className='pr-10'>
-                        <span className='pr-2'>{likesCount} {isLiked ? <FaThumbsUp className='inline ml-1 pb-1 text-xl md:text-[22px]' /> : <FaRegThumbsUp className='inline ml-1 pb-1 text-xl md:text-[22px]' />}</span>
+                        <span className='pr-2'>{likesCount} {isLiked ? <FaThumbsUp className='inline ml-1 pb-1 text-xl md:text-[22px] cursor-pointer' /> : <FaRegThumbsUp className='inline ml-1 pb-1 text-xl md:text-[22px] cursor-pointer' />}</span>
                     </div>
                 </div>
 

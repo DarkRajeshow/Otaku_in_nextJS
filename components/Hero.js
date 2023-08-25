@@ -2,7 +2,7 @@
 import useEmblaCarousel from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
 import React, { useEffect, useState, useCallback, useContext } from 'react'
-import { FaChevronLeft, FaChevronRight, FaTv, FaCaretDown, FaCaretUp } from 'react-icons/fa'
+import { FaChevronLeft, FaChevronRight, FaTv, FaCaretDown, FaCaretUp, FaCheckCircle } from 'react-icons/fa'
 import { Contexts } from '@/context/Store'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
@@ -71,7 +71,7 @@ export default function Hero() {
                 include: "genres",
                 sort: "popularityRank",
                 "page[limit]": 10,
-                "filter[categories]": `${generForHero === "All" ? "action,adventure,comedy" : generForHero}`,
+                "filter[categories]": `${generForHero}`,
             });
 
             const animeData = await fetch(`${apiUrl}?${queryParams}`);
@@ -97,8 +97,7 @@ export default function Hero() {
 
     return (
         <>
-
-            <motion.div className={`${isExpanded ? "h-auto" : "h-[110px]"} sm:h-auto overflow-hidden category grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 px-20 md:px-[5%] lg:px-[10%] w-full mx-auto pt-4 text-center text-sm xl:text-base gap-1 bg-texturedBgDark`}
+            {heroData.length !== 0 && <motion.div className={`${isExpanded ? "h-auto" : "h-[110px]"} md:h-auto overflow-hidden category grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 px-20 md:px-[5%] lg:px-[10%] w-full mx-auto pt-4 text-center text-sm xl:text-base gap-1 bg-[rgba(255,255,255,.05)] relative pb-4`}
                 initial={{
                     opacity: 0
                 }}
@@ -113,20 +112,20 @@ export default function Hero() {
                 {Categories.map((Category, index) => {
                     return (
                         <span
-                            className={`font-bold rounded-full flex items-center justify-center cursor-pointer p-3 ${CategoryColors[index]} ${Category === generForHero ? 'bg-black border-[1px] border-light' : ''}`}
+                            className={`font-bold rounded-sm flex items-center justify-center cursor-pointer hover:bg-dark/50 transition-[1s] p-3 ${CategoryColors[index]} ${Category === generForHero ? 'bg-dark hover:bg-none border-light' : ''}`}
                             key={index}
                             onClick={() => {
                                 setgenerForHero(Category);
                             }}
                         >
-                            <FaTv className="mr-2 text-light" />
+                            {Category === generForHero ? <FaCheckCircle className='mr-2 text-light' /> : ""}
                             {Category}
                         </span>
                     );
                 })}
-                <span className='-left-10 w-5 bottom-64 relative text-xl bg-light text-dark rounded-md' onClick={() => { setIsExpanded(!isExpanded) }}>{isExpanded ? <FaCaretUp /> : <FaCaretDown />}</span>
+                <span className='left-6 md:left-2 top-4 w-5 lg:hidden absolute text-xl bg-light text-dark rounded-md' onClick={() => { setIsExpanded(!isExpanded) }}>{isExpanded ? <FaCaretUp /> : <FaCaretDown />}</span>
 
-            </motion.div >
+            </motion.div >}
             {loading && <SmartLoader />}
             {
                 (heroData.length !== 0 && !loading) && <motion.div className="embla" ref={emblaRef}
@@ -146,7 +145,7 @@ export default function Hero() {
 
                             const gradientStyle = {
                                 backgroundImage: `linear-gradient(90deg, rgba(0, 0, 0, 0.891281512605042) 30%, rgba(78, 78, 91, 0) 100%, rgba(28, 23, 23, 1) 100%), url(${anime.attributes.coverImage.original})`,
-                                backgroundPosition: 'center',
+                                backgroundPosition: 'center top',
                                 backgroundSize: 'cover',
                                 backgroundRepeat: 'no-repeat',
                             };

@@ -127,6 +127,21 @@ export default function NavBar() {
             searchAnime();
             inputRef.current.focus();
         }
+        if (window.innerWidth <= 400) {
+            setInputBarWidth(80)
+        }
+        else if (window.innerWidth <= 500) {
+            setInputBarWidth(100)
+        }
+        else if (window.innerWidth <= 775) {
+            setInputBarWidth(160)
+        }
+        else if (window.innerWidth <= 1100) {
+            setInputBarWidth(190)
+        }
+        else {
+            setInputBarWidth(240);
+        }
         const handleResize = () => {
             if (window.innerWidth <= 400) {
                 setInputBarWidth(80)
@@ -206,9 +221,11 @@ export default function NavBar() {
                     </motion.div>
                 </div>
 
-                {["/", "/overview"].includes(pathname) && <div className="sections flex items-center font-semibold lg;text-base xl:text-lg">
+                {["/", "/overview"].includes(pathname) && <div className="sections flex items-center font-medium lg;text-base xl:text-lg justify-center">
                     <span className='text-[#cbcdc2] hidden lg:block'>🌟Looking for custom anime recommendations? <Link href={"/step1"} className='text-[#a2eeff] underline underline-offset-4'> Click here.</Link> 🎬🔍</span>
                     <span className='text-[#cbcdc2]  lg:hidden md:block hidden'>🌟Wants custom recommendations? <Link href={"/step1"} className='text-[#a2eeff] underline underline-offset-4'> Click here.</Link> 🎬🔍</span>
+                    <span className='text-[#cbcdc2] hidden sm:block md:hidden'>custom recommendations? <Link href={"/step1"} className='text-[#a2eeff] underline underline-offset-4'> Click here.</Link> 🎬🔍</span>
+                    <Link href={"/step1"} className='text-[#a2eeff] sm:hidden  underline underline-offset-4'> Discover</Link>
                 </div>
                 }
 
@@ -405,7 +422,7 @@ export default function NavBar() {
                     <button className='p-3 bg-psychological my-3 rounded-md' onClick={() => {
                         setIsFilterOpened(false);
                         searchAnime();
-                    }}>Apply Filter</button>
+                    }}>Apply Changes</button>
 
                     <button className='p-3 bg-black text-light my-3 rounded-md' onClick={async () => {
                         await setSelectedAgeRating("")

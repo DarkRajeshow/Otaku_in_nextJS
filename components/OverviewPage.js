@@ -116,14 +116,14 @@ export default function OverviewPage({ id }) {
         <>
             {(animeOverviewData !== {} && !loading) && <div style={bgGradientImage} className='px-6 sm:px-12 md:px-16 lg:px-20 m-0 py-5 md:py-10'>
                 <div className='fixed cursor-pointer right-4 bottom-6 text-2xl bg-light text-dark p-2 rounded-full z-20'
-                    onClick={()=>{
+                    onClick={() => {
                         window.scrollTo({
-                            top:0,
-                            behavior:"smooth"
+                            top: 0,
+                            behavior: "smooth"
                         })
                     }}
                 >
-                    <FaArrowUp className='text-dark'/>
+                    <FaArrowUp className='text-dark' />
                 </div>
                 <div className='information grid lg:grid-cols-3 p-4 sm:p-6 md:p-8 lg:p-10 rounded-md bg-light/5 backdrop-blur-md border-none'>
 
@@ -147,7 +147,16 @@ export default function OverviewPage({ id }) {
                                     <FaChild className='mr-1 cursor-pointer' /> <span>5+</span></>
                             }
                         </div>
-                        <Image onLoad={() => { setIsImageLoaded(true) }} src={animeOverviewData.animeImage} height={1500} width={600} alt='anime poster' className='w-full h-full bg-center bg-cover bg-no-repeat hover:scale-[1.05] transition-[1.3s]' />
+                        {animeOverviewData.animeImage && (
+                            <Image
+                                src={animeOverviewData.animeImage}
+                                onLoad={() => setIsImageLoaded(true)}
+                                height={1500}
+                                width={600}
+                                alt='anime poster'
+                                className='w-full h-full bg-center bg-cover bg-no-repeat hover:scale-[1.05] transition-[1.3s]'
+                            />
+                        )}
                     </motion.div>
 
                     <motion.div className='lg:col-span-2 lg:ml-10 mt-10 lg:mt-0'

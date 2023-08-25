@@ -84,7 +84,7 @@ export default function Card(props) {
                     once: true
                 }}
             >
-                <motion.div className='h-full w-full overflow-hidden bg-transparent m-auto rounded-t-xl'
+                <motion.div className='h-full w-full overflow-hidden bg-transparent m-auto rounded-md'
                     style={gradienttest}
                     initial={{
                         opacity: 0
@@ -111,7 +111,7 @@ export default function Card(props) {
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.5 }}
                     >
-                        <Image className="image h-[550px] w-full overflow-hidden bg-transparent m-auto rounded-t-xl bg-cover bg-no-repeat bg-center"
+                        <Image className="image h-[550px] w-full overflow-hidden bg-transparent m-auto rounded-md bg-cover bg-no-repeat bg-center"
                             onLoad={() => { setIsImageLoaded(true) }}
                             src={props.card.attributes.posterImage.original}
                             width={400}
