@@ -28,10 +28,10 @@ export default function Footer() {
     }
 
     return (
-        <div className="py-10 border-t-[1px] border-light px-6 md:px-16 lg:px-32 bg-dark grid grid-cols-9 gap-3">
+        <div className="py-6 md:py-8 lg:py-10 border-t-[1px] border-light px-6 md:px-16 lg:px-32 bg-dark grid grid-cols-9 gap-3">
             <div className='flex items-center justify-center col-span-3 min-[400px]:col-span-2 lg:col-span-1'>
                 <Link href={"/"} >
-                    <Image src={Logo} alt='Logo' className='h-20 w-20 rounded-full border-2 border-light' />
+                    <Image src={Logo} alt='Logo' className='h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20 rounded-full border-2 border-light' />
                 </Link>
             </div>
             <div className="contacttext font-medium text-xs min-[400px]:text-sm sm:text-base col-span-6 min-[400px]:col-span-7 lg:col-span-8 flex flex-col justify-center">

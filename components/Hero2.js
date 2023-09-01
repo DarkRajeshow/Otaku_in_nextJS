@@ -81,15 +81,15 @@ export default function Hero2() {
     return (
         <>
             <div
-                className='w-full flex flex-col items-center mt-[-20vh] md:mt-32 my-32'
+                className='w-full flex flex-col items-center mt-12 sm:mt-20 md:mt-32'
             >
                 <div className='text-center w-[80%] sm:w-[60%]'>
-                    <AnimateText className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold pb-3 mt-10' colorful={true} text={"Let's Dive into the colorful world of anime Movies!"} />
-                    <motion.p className='text-sm sm:text-base md:text-md lg:text-lg font-medium'
+                    <AnimateText className='text-2xl min-[450px]:text-3xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold pb-1 sm:pb-3 mt-10' colorful={true} text={"Let's Dive into the colorful world of anime Movies!"} />
+                    <motion.p className='hidden sm:block sm:text-base md:text-md lg:text-lg font-medium'
                     >Are you ready to explore the captivating world of anime movies?</motion.p>
                 </div>
                 <div className='flex items-center justify-center w-full px-[1%] sm:px-[4%] md:px-[6%] lg:px-[10%] xl:px-[20%]'>
-                    <div className="titles w-[28%] sm:w-[25%]">
+                    <div className="titles w-[14%] min-[450px]:w-[20%] sm:w-[25%]">
                         {titlesForHero2.map((title, index) => {
                             return (
                                 <TextWidthAnimation offSetPage={offSetPage} key={index} index={index} text={title} className='text-lg min-[500px]:text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-light' imageIndex={imageIndex} setImageIndex={setImageIndex} />
@@ -99,7 +99,7 @@ export default function Hero2() {
                     {/* w-[65vw] sm:w-[70vw] md:w-[60vw] lg:w-[50vw] */}
                     <motion.div className="image w-[72%] sm:w-[75%]">
                         {isLoading &&
-                            <SmartLoader className={'h-[50vh] min-[500px]:h-[70vh] sm:h-[80vh]'}/>
+                            <SmartLoader className={'h-[10vh]'}/>
                         }
                         {(topMoviesData.length !== 0 && !isLoading) &&
                             topMoviesData.map((movie, index) => {
@@ -109,7 +109,7 @@ export default function Hero2() {
                                     backgroundImage: `linear-gradient(90deg, rgba(0, 0, 0, 0.891281512605042) 0%, rgba(78, 78, 91, 0) 100%, rgba(28, 23, 23, 1) 30%), url(${movie.attributes.posterImage.original})`,
                                     backgroundPosition: 'center',
                                     backgroundSize: 'cover',
-                                    backgroundRepeat: 'no-repeat',
+                                    backgroundRepeat: 'no-repeat'
                                 };
 
                                 return (

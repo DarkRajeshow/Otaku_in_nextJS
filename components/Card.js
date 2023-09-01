@@ -46,7 +46,6 @@ export default function Card(props) {
     }
 
     const handleMousehover = () => {
-        console.log(window.innerWidth);
         if (window.innerWidth >= 640) {
             setIsCardHovered(true);
         }
@@ -64,8 +63,7 @@ export default function Card(props) {
 
     return (
         <>
-            <motion.div className="relative card h-[550px] text-white rounded-md overflow-hidden border-[1px] border-light sm:cursor-pointer"
-                // style={gradiettest}
+            <motion.div className="relative card h-[550px] text-white rounded-md overflow-hidden border-[1px] border-light cursor-pointer"
                 onClick={handleCardClick}
                 onHoverStart={handleMousehover}
                 onHoverEnd={handleMouseDown}
@@ -188,25 +186,3 @@ export default function Card(props) {
     )
 }
 
-
-{/* {<motion.h2
-                        className="absolute text-overlay top-0 left-0 flex items-center justify-center m-auto w-full h-full text-center my-auto text-white font-bold text-[1.1rem]"
-
-                        onHoverStart={() => {
-                            setImageOpacity(0.4)
-                        }}
-                        onHoverEnd={() => {
-                            setImageOpacity(1)
-                        }}
-
-                        initial={{
-                            opacity: 0,
-                        }}
-                        whileHover={{
-                            opacity: 1,
-                        }}
-                        transition={{
-                            duration: 0.3,
-                        }}
-                    >{calculateMatchPercentage(searchedAnimeName, (props.card.attributes.titles.en ? props.card.attributes.titles.en : props.card.attributes.titles.en_us ? props.card.attributes.titles.en_us : props.card.attributes.titles.en_jp ? props.card.attributes.titles.en_jp : props.card.attributes.titles.ja_jp ? props.card.attributes.titles.ja_jp : ""))}
-                    </motion.h2>} */}

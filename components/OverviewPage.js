@@ -114,7 +114,7 @@ export default function OverviewPage({ id }) {
 
     return (
         <>
-            {(animeOverviewData !== {} && !loading) && <div style={bgGradientImage} className='px-6 sm:px-12 md:px-16 lg:px-20 m-0 py-5 md:py-10'>
+            {(animeOverviewData !== {} && !loading) && <div style={bgGradientImage} className='px-6 sm:px-12 md:px-16 lg:px-20 m-0 py-5 md:py-10 font-medium'>
                 <div className='fixed cursor-pointer right-4 bottom-6 text-2xl bg-light text-dark p-2 rounded-full z-20'
                     onClick={() => {
                         window.scrollTo({
@@ -327,7 +327,7 @@ export default function OverviewPage({ id }) {
                             setReviewsOpened(!reviewsOpened);
                         }}
                     >Reviews{reviewsOpened ? <><FaCaretDown /></> : <><FaCaretUp /></>} </div>
-                    <div className={`${reviewsOpened ? "block" : "hidden"} rounded-md bg-light/5 backdrop-blur-md p-4`}>
+                    <div className={`${reviewsOpened ? "block" : "hidden"} rounded-md bg-light/5 backdrop-blur-md p-2 md:p-4`}>
                         {reviewsData !== undefined && reviewsData.map((review, index) => {
                             return <ReviewCard review={review} key={index} />
                         })}

@@ -97,7 +97,7 @@ export default function Hero() {
 
     return (
         <>
-            {heroData.length !== 0 && <motion.div className={`${isExpanded ? "h-auto" : "h-[110px]"} md:h-auto overflow-hidden category grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 px-20 md:px-[5%] lg:px-[10%] w-full mx-auto pt-4 text-center text-sm xl:text-base gap-1 bg-[rgba(255,255,255,.05)] relative pb-4`}
+            {heroData.length !== 0 && <motion.div className={`${isExpanded ? "h-auto" : "max-[450px]:h-[95px] h-[110px]"} md:h-auto overflow-hidden category grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 px-20 md:px-[5%] lg:px-[10%] w-full mx-auto pt-4 text-center text-sm xl:text-base gap-1 bg-[rgba(255,255,255,.05)] relative pb-4`}
                 initial={{
                     opacity: 0
                 }}
@@ -112,7 +112,7 @@ export default function Hero() {
                 {Categories.map((Category, index) => {
                     return (
                         <span
-                            className={`font-bold rounded-sm flex items-center justify-center cursor-pointer hover:bg-dark/50 transition-[1s] p-3 ${CategoryColors[index]} ${Category === generForHero ? 'bg-dark hover:bg-none border-light' : ''}`}
+                            className={`font-bold rounded-sm flex items-center justify-center cursor-pointer hover:bg-dark/50 transition-[1s] max-[450px]:p-2 p-3 ${CategoryColors[index]} ${Category === generForHero ? 'bg-dark hover:bg-none border-light' : ''}`}
                             key={index}
                             onClick={() => {
                                 setgenerForHero(Category);
@@ -123,10 +123,10 @@ export default function Hero() {
                         </span>
                     );
                 })}
-                <span className='left-6 md:left-2 top-4 w-5 lg:hidden absolute text-xl bg-light text-dark rounded-md' onClick={() => { setIsExpanded(!isExpanded) }}>{isExpanded ? <FaCaretUp /> : <FaCaretDown />}</span>
+                <span className='left-6 md:left-2 top-4 w-5 lg:hidden absolute text-xl bg-light text-dark rounded-md cursor-pointer' onClick={() => { setIsExpanded(!isExpanded) }}>{isExpanded ? <FaCaretUp /> : <FaCaretDown />}</span>
 
             </motion.div >}
-            {loading && <SmartLoader />}
+            {loading && <SmartLoader className='h-[70vh] md:h-[100vh]'/>}
             {
                 (heroData.length !== 0 && !loading) && <motion.div className="embla" ref={emblaRef}
                     initial={{
@@ -139,7 +139,7 @@ export default function Hero() {
                         }
                     }}
                 >
-                    <div className="embla__container h-screen">
+                    <div className="embla__container h-[70vh] md:h-[100vh]">
                         {heroData.length !== 0 && heroData.map((anime, index) => {
                             const title = anime.attributes.titles.en || anime.attributes.titles.en_us || anime.attributes.titles.en_jp || anime.attributes.titles.ja_jp || "";
 
@@ -162,7 +162,7 @@ export default function Hero() {
                             );
                         })}
                     </div>
-                    <motion.div className='right-2 bottom-4 sm:bottom-[42%] md:bottom-[45%] lg:bottom-[51%] absolute text-lg flex flex-col '
+                    <motion.div className='right-2 bottom-[10%] md:bottom-[45%] lg:bottom-[51%] absolute text-lg flex flex-col '
                         initial={{
                             opacity: 0,
                             x: "50vw"

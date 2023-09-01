@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react'
 import { motion } from 'framer-motion'
 
-export default function AnimateText({ text, colorful = false, className = "", durationtime = "0.5", isWord = false }) {
+export default function AnimateText({ text, colorful = false, className = "", durationtime = "0.7", isWord = false }) {
 
     const quatVarient = {
         initial: {
@@ -11,7 +11,7 @@ export default function AnimateText({ text, colorful = false, className = "", du
         whileInView: {
             opacity: 1,
             transition: {
-                delay: 0.5,
+                delay: 0.2,
                 staggerChildren: 0.1
             }
         }
@@ -20,7 +20,7 @@ export default function AnimateText({ text, colorful = false, className = "", du
     const wordVariant = {
         initial: {
             opacity: 0,
-            y: 40
+            y: 20
         },
         whileInView: {
             opacity: 1,

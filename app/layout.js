@@ -29,6 +29,8 @@ export default function RootLayout({ children }) {
         <StoreProvider>
           <div>
             <NavBar />
+            <div className='h-[70px] sm:h-[84px] bg-dark'>
+            </div>
             {children}
             <Footer />
           </div>
