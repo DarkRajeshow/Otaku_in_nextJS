@@ -35,7 +35,7 @@ export default function Footer() {
                 </Link>
             </div>
             <div className="contacttext font-medium text-xs min-[400px]:text-sm sm:text-base col-span-6 min-[400px]:col-span-7 lg:col-span-8 flex flex-col justify-center">
-                <h1 className='font-bold'>© All rights reserved.</h1>
+                <h1 className='font-bold'>Made with ❤️ heart by <a href="https://rajesh2004.vercel.app/" className='text-sliceOfLife'>©️Rajesh Adeli</a></h1>
                 <p className='hidden md:block sm:text-sm'>we do not store any files on our server. Our website only provides links to media content that is hosted on third-party services. A big credit goes to <strong>kitsuApi</strong> which provides valuable data for free.</p>
             </div>
         </div>
