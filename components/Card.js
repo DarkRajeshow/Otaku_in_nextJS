@@ -30,11 +30,6 @@ export default function Card(props) {
         background: 'linear-gradient(180deg,hsla(0, 0%, 0%, 0) 0%,hsla(0, 0%, 0%, 0.3) 10%,hsl(0, 0%, 0%) 100%)'
     }
 
-    const handleKeyDown = (event) => {
-        if (event.key === 'Enter') {
-            searchAnime();
-        }
-    };
 
     const handleCardClick = () => {
         if (window.innerWidth <= 640) {
@@ -62,26 +57,29 @@ export default function Card(props) {
     const title = props.card.attributes.titles.en ? props.card.attributes.titles.en : props.card.attributes.titles.en_us ? props.card.attributes.titles.en_us : props.card.attributes.titles.en_jp ? props.card.attributes.titles.en_jp : props.card.attributes.titles.ja_jp ? props.card.attributes.titles.ja_jp : "Not Registered Yet"
 
     return (
-        <>
-            <motion.div className="relative card h-[550px] text-white rounded-md overflow-hidden border-[1px] border-light cursor-pointer"
-                onClick={handleCardClick}
-                onHoverStart={handleMousehover}
-                onHoverEnd={handleMouseDown}
-                initial={{
-                    opacity: 0,
-                }}
-                whileInView={{
-                    opacity: 1,
-                    transition: {
-                        type: "just",
-                        delay: 0.2,
-                        duration: 0.5,
-                    }
-                }}
-                viewport={{
-                    once: true
-                }}
+        <motion.div className='relative'
+            onClick={handleCardClick}
+            onHoverStart={handleMousehover}
+            onHoverEnd={handleMouseDown}
+            initial={{
+                opacity: 0,
+            }}
+            whileInView={{
+                opacity: 1,
+                transition: {
+                    type: "just",
+                    delay: 0.2,
+                    duration: 0.5,
+                }
+            }}
+            viewport={{
+                once: true
+            }}
+        >
+            <div className="relative card h-[550px] text-white rounded-md overflow-hidden border-[1px] border-light cursor-pointer"
+
             >
+
                 <motion.div className='h-full w-full overflow-hidden bg-transparent m-auto rounded-md'
                     style={gradienttest}
                     initial={{
@@ -181,8 +179,24 @@ export default function Card(props) {
 
                 </div>
 
-            </motion.div >
-        </>
+            </div >
+            <motion.div className={`cursor-pointer p-[5px] rounded-md absolute top-1.5 left-1.5 font-bold text-[10px] z-30 ${props.card.attributes.ageRating === "R" ? "bg-red-500" : props.card.attributes.ageRating === "PG" ? "bg-emerald-400" : "bg-emerald-600"}`}
+                initial={{
+                    opacity: 0
+                }}
+                animate={{
+                    opacity: 1,
+                    transition: {
+                        duration: 1,
+                        type: "just"
+                    }
+                }}
+            >
+                {
+                    props.card.attributes.ageRating === "R" ? "17+" : props.card.attributes.ageRating === "PG" ? "13+" : "10+"
+                }
+            </motion.div>
+        </motion.div>
     )
 }
 

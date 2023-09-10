@@ -7,6 +7,7 @@ import { Contexts } from '@/context/Store'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import CarousalCard from './CarousalCard'
+import Aot from '@/public/aot.png'
 import SmartLoader from './SmartLoader'
 
 export default function Hero() {
@@ -126,7 +127,7 @@ export default function Hero() {
                 <span className='left-6 md:left-2 top-4 w-5 lg:hidden absolute text-xl bg-light text-dark rounded-md cursor-pointer' onClick={() => { setIsExpanded(!isExpanded) }}>{isExpanded ? <FaCaretUp /> : <FaCaretDown />}</span>
 
             </motion.div >}
-            {loading && <SmartLoader className='h-[70vh] md:h-[100vh]'/>}
+            {loading && <SmartLoader className='h-[70vh] md:h-[100vh]' />}
             {
                 (heroData.length !== 0 && !loading) && <motion.div className="embla" ref={emblaRef}
                     initial={{
@@ -144,7 +145,7 @@ export default function Hero() {
                             const title = anime.attributes.titles.en || anime.attributes.titles.en_us || anime.attributes.titles.en_jp || anime.attributes.titles.ja_jp || "";
 
                             const gradientStyle = {
-                                backgroundImage: `linear-gradient(90deg, rgba(0, 0, 0, 0.891281512605042) 30%, rgba(78, 78, 91, 0) 100%, rgba(28, 23, 23, 1) 100%), url(${anime.attributes.coverImage.original})`,
+                                backgroundImage: `linear-gradient(90deg, rgba(0, 0, 0, 0.891281512605042) 30%, rgba(78, 78, 91, 0) 100%, rgba(28, 23, 23, 1) 100%)`,
                                 backgroundPosition: 'center top',
                                 backgroundSize: 'cover',
                                 backgroundRepeat: 'no-repeat',
@@ -158,7 +159,7 @@ export default function Hero() {
                             };
 
                             return (
-                                <CarousalCard CategoryColors={CategoryColors} key={anime.id} index={index} anime={anime} gradientStyle={gradientStyle} title={title} openOverview={openOverview} />
+                                <CarousalCard CategoryColors={CategoryColors} bgImage={anime.attributes.coverImage.original === "https://media.kitsu.io/anime/cover_images/7442/original.png" ? Aot : anime.attributes.coverImage.original} key={anime.id} index={index} anime={anime} gradientStyle={gradientStyle} title={title} openOverview={openOverview} />
                             );
                         })}
                     </div>

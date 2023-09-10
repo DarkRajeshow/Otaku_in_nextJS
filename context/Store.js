@@ -94,7 +94,7 @@ export const StoreProvider = ({ children }) => {
 
 
             params.set("page[limit]", 20);
-            params.set("fields[anime]", "titles,description,posterImage,averageRating,episodeCount,status,youtubeVideoId,subtype,startDate,episodeLength");
+            params.set("fields[anime]", "titles,description,posterImage,averageRating,episodeCount,status,youtubeVideoId,subtype,startDate,episodeLength,ageRating");
 
             const fullUrl = `${apiUrl}?${params.toString()}`;
 

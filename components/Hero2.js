@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation'
 import SmartLoader from './SmartLoader'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 
+
 export default function Hero2() {
 
     const { setAnimeId } = useContext(Contexts)
@@ -106,14 +107,14 @@ export default function Hero2() {
                                 const title = movie.attributes.titles.en || movie.attributes.titles.en_us || movie.attributes.titles.en_jp || movie.attributes.titles.ja_jp || "";
 
                                 const gradientStyleForMobile = {
-                                    backgroundImage: `linear-gradient(90deg, rgba(0, 0, 0, 0.891281512605042) 0%, rgba(78, 78, 91, 0) 100%, rgba(28, 23, 23, 1) 30%), url(${movie.attributes.posterImage.original})`,
+                                    backgroundImage: `linear-gradient(90deg, rgba(0, 0, 0, 0.891281512605042) 0%, rgba(78, 78, 91, 0) 100%, rgba(28, 23, 23, 1) 30%)`,
                                     backgroundPosition: 'center',
                                     backgroundSize: 'cover',
                                     backgroundRepeat: 'no-repeat'
                                 };
 
                                 return (
-                                    <MovieCard imageIndex={imageIndex} id={movie.id} key={movie.id} index={index} rating={(Math.round(movie.attributes.averageRating)) / 10} gradientStyleForMobile={gradientStyleForMobile} title={title} openOverview={openOverview} offSetPage={offSetPage} duration={movie.attributes.episodeLength} />
+                                    <MovieCard imageIndex={imageIndex} bgImage={movie.attributes.posterImage.original} id={movie.id} key={movie.id} index={index} rating={(Math.round(movie.attributes.averageRating)) / 10} gradientStyleForMobile={gradientStyleForMobile} title={title} openOverview={openOverview} offSetPage={offSetPage} duration={movie.attributes.episodeLength} />
                                 );
                             })
                         }

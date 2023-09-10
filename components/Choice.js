@@ -40,7 +40,7 @@ export default function Choice() {
 
             queryParams.append("sort", "popularityRank");
             queryParams.append("page[limit]", "20");
-            queryParams.append("fields[anime]", "titles,description,posterImage,averageRating,episodeCount,status,youtubeVideoId,showType");
+            queryParams.append("fields[anime]", "titles,description,posterImage,averageRating,episodeCount,status,youtubeVideoId,showType,ageRating");
 
             const fullUrl = `${apiUrl}?${queryParams}`;
 

@@ -2,12 +2,18 @@ import { Contexts } from '@/context/Store'
 import { motion } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
 import { FaCalendar, FaClock, FaFilm, FaPlayCircle, FaInfoCircle, FaStar, FaDotCircle } from 'react-icons/fa'
+import blurImage from '@/public/blurImage2.png'
+import Image from 'next/image'
 
-export default function CarousalCard({ anime, gradientStyle, title, index, openOverview, CategoryColors }) {
+export default function CarousalCard({ anime, bgImage, gradientStyle, title, index, openOverview, CategoryColors }) {
 
     const genreData = anime.relationships.genres.data
     const genreBaseUrl = 'https://kitsu.io/api/edge/genres/'
     const [genres, setGenres] = useState([]);
+    const [isImageLoaded, setIsImageLoaded] = useState(false)
+
+    const TransitionStyle = isImageLoaded ? {} : { type: "just", duration: 2, repeat: Infinity }
+
 
     // fetchAnimeLinks
     const fetchAnimeGenres = async () => {
@@ -24,18 +30,66 @@ export default function CarousalCard({ anime, gradientStyle, title, index, openO
         }
     };
 
+
+    const gradienttest = {
+        backgroundImage: `url(${blurImage.src})`,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+    };
+
+
     useEffect(() => {
         fetchAnimeGenres();
     }, [])
 
     return (
         <div className="embla__slide" key={anime.id}>
-            <div className="image">
+            <div className="image relative overflow-hidden">
                 <div
                     className="w-screen h-[70vh] md:h-[100vh] flex items-center"
                     style={gradientStyle}
                 >
-                    <div className='gradientDiv text-light relative left-6 sm:left-10 w-[70%] sm:w-[60%] md:w-[50%]'>
+                    <motion.div className='!h-full overflow-hidden bg-transparent m-auto rounded-md'
+                        style={gradienttest}
+                        initial={{
+                            opacity: 0
+                        }}
+                        animate={{
+                            opacity: isImageLoaded ? 1 : [0.2, 0.4, 0.2],
+                            transition: TransitionStyle
+                        }}
+                        transition={{
+                            type: "just",
+                            duration: 0.3,
+                        }}
+                    >
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.5 }}
+                            className='relative'
+                        >
+                            <Image className="image h-[70vh] md:h-[100vh] object-fill object-center overflow-hidden bg-transparent m-auto rounded-md "
+                                style={{
+                                    objectFit: 'cover',  // Ensures the image covers the container
+                                    objectPosition: 'center top',
+                                }}
+                                onLoad={() => { setIsImageLoaded(true) }}
+                                src={bgImage}
+                                width={1800}
+                                height={1200}
+                                alt='Anime Poster'
+                            />
+                            <div className='h-full w-full top-0 left-0 absolute'
+                                style={gradientStyle}
+                            />
+
+                        </motion.div>
+                    </motion.div>
+
+                    <div className='gradientDiv text-light absolute left-6 sm:left-10 w-[70%] sm:w-[60%] md:w-[50%]'>
                         <p className='text-base sm:text-lg md:text-xl lg:text-[24px] font-bold'><span className='text-primaryDark'>#{index + 1}</span>Rank</p>
                         <h1 className='text-[26px] leading-7 min-[400px]:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mt-1 sm:mt-2 mb-2 sm:mb-5'>{title}</h1>
                         <div className="smallinfo flex font-medium sm:font-semibold mb-2 sm:mb-5 text-sm sm:text-base md:text-lg text-light ">
@@ -63,8 +117,8 @@ export default function CarousalCard({ anime, gradientStyle, title, index, openO
                             }}
                             animate={{
                                 opacity: 1,
-                                transition:{
-                                    type:"just",
+                                transition: {
+                                    type: "just",
                                     duration: 1
                                 }
                             }}
