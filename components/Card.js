@@ -180,7 +180,7 @@ export default function Card(props) {
                 </div>
 
             </div >
-            <motion.div className={`cursor-pointer p-[5px] rounded-md absolute top-1.5 left-1.5 font-bold text-[10px] z-30 ${props.card.attributes.ageRating === "R" ? "bg-red-500" : props.card.attributes.ageRating === "PG" ? "bg-emerald-400" : "bg-emerald-600"}`}
+            <motion.div className={`cursor-pointer p-[5px] rounded-md absolute top-1.5 left-1.5 font-bold text-[10px] ${props.card.attributes.ageRating === "R" ? "bg-red-500" : props.card.attributes.ageRating === "PG" ? "bg-emerald-400" : "bg-emerald-600"}`}
                 initial={{
                     opacity: 0
                 }}

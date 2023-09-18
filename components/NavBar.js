@@ -178,7 +178,7 @@ export default function NavBar() {
 
     return (
         <div className='w-full bg-dark'>
-            <motion.div className="h-[70px] sm:h-[84px] p-3 w-full border-b-[1px] border-[white] flex justify-between"
+            <motion.div className="h-[70px] sm:h-[84px] p-3 w-full border-b-[1px] border-[white] flex justify-between z-20"
                 transition={{
                     type: 'tween', duration: 1
                 }}
