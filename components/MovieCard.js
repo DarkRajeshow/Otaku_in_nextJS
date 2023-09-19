@@ -20,7 +20,7 @@ export default function MovieCard({ bgImage, gradientStyleForMobile, index, titl
     return (
         <div className={`relative w-full h-[50vh] min-[500px]:h-[70vh] sm:h-[80vh] ${imageIndex === index ? "block" : "hidden"} overflow-hidden rounded-r-[50px] rounded-l-[10px] flex items-center`}>
             <motion.div
-                // className={`relative w-full h-[50vh] min-[500px]:h-[70vh] sm:h-[80vh] ${imageIndex === index ? "block" : "hidden"} overflow-hidden rounded-r-[50px] rounded-l-[10px] flex items-center`}
+                className={`w-full h-[50vh] min-[500px]:h-[70vh] sm:h-[80vh] ${imageIndex === index ? "block" : "hidden"}`}
                 style={gradienttest}
                 initial={{
                     opacity: 0
